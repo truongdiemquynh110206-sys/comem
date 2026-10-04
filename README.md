@@ -12,7 +12,7 @@ Website mô phỏng cho bài tập thương mại điện tử, giới thiệu v
 
 ## Chức năng
 
-- Danh mục và lọc 1 loại sản phẩm 
+- Danh mục và lọc 2 loại sản phẩm 
 - Giỏ hàng: thêm, tăng/giảm số lượng, xóa, lưu bằng LocalStorage
 - Quy trình thanh toán và đổi trả 7 ngày
 - Chỉ số theo dõi và doanh thu (số liệu minh họa)
