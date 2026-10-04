@@ -89,7 +89,7 @@ const products = [
 
         name: "Dầu gội Bưởi Cocoon 310ml",
 
-        price: 200000,
+        price: 269000,
 
         category: "dau-goi",
 
@@ -311,7 +311,7 @@ const products = [
     {
         id: 5,
 
-        name: "Combo Dầu gội xả Bưởi Cocoon 310ml x2",
+        name: "Combo Dầu gội xả Bưởi Cocoon 310ml",
 
         price: 590000,
 
