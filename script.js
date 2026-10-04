@@ -1,23 +1,21 @@
-```javascript
 /* =========================================================
    TÓC MÂY CỎ MỀM
    script.js
-
+   ---------------------------------------------------------
    Chức năng:
-   - Dữ liệu sản phẩm
-   - Hiển thị sản phẩm
-   - Tìm kiếm
-   - Lọc sản phẩm
-   - Chi tiết sản phẩm
-   - Giỏ hàng
-   - Tăng / giảm số lượng
-   - Xóa sản phẩm
-   - Tính tổng tiền
-   - Lưu giỏ hàng bằng localStorage
-
-   Lưu ý:
-   - Không sử dụng letter-spacing để tránh chữ tiếng Việt
-     bị cách nhau bất thường.
+   1. Dữ liệu sản phẩm
+   2. Hiển thị sản phẩm + HÌNH ẢNH
+   3. Tìm kiếm sản phẩm
+   4. Lọc sản phẩm
+   5. Xem chi tiết sản phẩm
+   6. Hiển thị xuất xứ + thành phần
+   7. Thêm vào giỏ hàng
+   8. Tăng / giảm số lượng
+   9. Xóa sản phẩm khỏi giỏ
+   10. Tính tổng tiền
+   11. Lưu giỏ hàng vào localStorage
+   12. Responsive
+   13. Không dùng letter-spacing làm tách chữ
    ========================================================= */
 
 
@@ -26,11 +24,6 @@
    ========================================================= */
 
 const products = [
-
-    /* -----------------------------------------------------
-       SẢN PHẨM 1
-       ----------------------------------------------------- */
-
     {
         id: 1,
 
@@ -38,28 +31,28 @@ const products = [
 
         shortName: "Dầu gội Tóc Mây",
 
-        category: "dau-goi",
-
-        categoryName: "Dầu gội",
+        category: "Dầu gội",
 
         price: 329000,
 
-        oldPrice: 350000,
-
-        image:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAwhDoQqbkZEReDgqgEdPU0u6i4bFlVlgtrNWTJC_I9vAwsdUjg9NhRydt&s=10",
-
-        detailImage:
-            "https://static.comem.vn/uploads/August2023/dau-goi-thao-duoc-toc-may-1.jpg",
+        oldPrice: 359000,
 
         badge: "Bán chạy",
 
-        origin: "Cỏ Mềm HomeLab",
+        /* ẢNH SẢN PHẨM CHÍNH */
+        image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAwhDoQqbkZEReDgqgEdPU0u6i4bFlVlgtrNWTJC_I9vAwsdUjg9NhRydt&s=10",
+
+        /* ẢNH DÙNG TRONG CHI TIẾT */
+        detailImage:
+            "https://static.comem.vn/uploads/August2023/dau-goi-thao-duoc-toc-may-1.jpg",
+
+        origin: "Cỏ Mềm HomeLab - Việt Nam",
 
         weight: "300 gram",
 
         hairProblem:
-            "Tóc xơ, gàu, gãy rụng nhiều",
+            "Tóc xơ, tóc gàu, tóc gãy rụng nhiều, tóc chẻ ngọn",
 
         fragrance:
             "Hương thơm dịu nhẹ với mùi thảo dược tự nhiên",
@@ -68,107 +61,98 @@ const products = [
             "24 tháng",
 
         description:
-            "Với chiết xuất từ Bồ kết và thảo dược truyền thống cùng các hoạt chất thiên nhiên, Dầu gội thảo dược Tóc Mây giúp làm sạch tóc và da đầu, ngăn ngừa và cải thiện tình trạng tóc gàu, gãy rụng, chẻ ngọn. Sản phẩm có thể dùng cho cả những người có da đầu nhạy cảm.",
+            "Với chiết xuất từ Bồ kết và thảo dược truyền thống cùng các hoạt chất thiên nhiên, Dầu gội thảo dược Tóc Mây giúp làm sạch tóc và da đầu, hỗ trợ cải thiện tình trạng gàu, gãy rụng và chẻ ngọn. Sản phẩm phù hợp với cả người có da đầu nhạy cảm.",
 
         highlights: [
-
             "Không silicone",
-
             "Không sulfate",
-
             "Phù hợp với da đầu nhạy cảm",
-
-            "Kết hợp thảo mộc truyền thống và hoạt chất thiên nhiên",
-
+            "Kết hợp thảo dược truyền thống và hoạt chất thiên nhiên",
             "Hương thảo dược dịu nhẹ"
-
         ],
 
         benefits: [
-
             "Làm sạch tóc và da đầu",
-
             "Hỗ trợ cải thiện tình trạng gàu",
-
-            "Hỗ trợ chăm sóc tóc gãy rụng",
-
+            "Hỗ trợ giảm tình trạng tóc gãy rụng",
             "Hỗ trợ chăm sóc tóc chẻ ngọn",
-
-            "Giúp mái tóc mềm mượt, chắc khỏe"
-
+            "Giúp tóc mềm mượt và chắc khỏe",
+            "Góp phần chăm sóc nang tóc"
         ],
 
         ingredients: [
-
             "Nước tinh khiết (Purified water)",
-
-            "Cao dược liệu: quả Bồ kết",
-
+            "Cao quả Bồ kết",
             "Rễ và lá Dâu Tằm",
-
             "Cỏ Mần Trầu",
-
             "Cỏ Ngũ Sắc",
-
             "Lá Tre",
-
             "Quả Mắc Kham",
-
             "Quả Bồ Hòn",
-
             "Propanediol",
-
             "Glycerin",
-
             "Tinh dầu vỏ Bưởi (Citrus maxima peel essential oil)",
-
             "Tinh dầu Hương nhu (Ocimum gratissimum essential oil)",
-
             "Tinh dầu Sả chanh (Cymbopogon citratus essential oil)",
-
             "Dầu quả Bơ (Persea gratissima fruit oil)",
-
             "Vitamin E (Tocopherol)",
+            "Phenoxyethanol"
+        ],
 
-            "Phenoxyethanol",
-
-            "Protein từ đậu Hà Lan (Cetearamidoethyldiethonium Succinoyl Hydrolyzed Pea Protein)"
-
+        herbalIngredients: [
+            {
+                name: "Bồ kết",
+                description:
+                    "Chứa saponin, hỗ trợ làm sạch tóc và da đầu."
+            },
+            {
+                name: "Bồ hòn",
+                description:
+                    "Nguồn saponin thực vật, hỗ trợ tạo bọt và làm sạch."
+            },
+            {
+                name: "Cỏ ngũ sắc",
+                description:
+                    "Thảo dược truyền thống được sử dụng trong công thức chăm sóc tóc."
+            },
+            {
+                name: "Hương nhu",
+                description:
+                    "Hỗ trợ chăm sóc da đầu và tóc."
+            },
+            {
+                name: "Cỏ mần trầu",
+                description:
+                    "Được sử dụng trong công thức chăm sóc tóc và da đầu."
+            },
+            {
+                name: "Tinh dầu vỏ Bưởi",
+                description:
+                    "Góp phần chăm sóc tóc, hỗ trợ hạn chế tình trạng tóc gãy rụng."
+            },
+            {
+                name: "Dầu quả Bơ",
+                description:
+                    "Giàu vitamin A, C, D, E, hỗ trợ dưỡng tóc mềm mượt và chắc khỏe."
+            },
+            {
+                name: "Protein đậu Hà Lan",
+                description:
+                    "Hỗ trợ làm mượt và chăm sóc tóc hư tổn."
+            }
         ],
 
         usage: [
-
-            "Làm ướt tóc và thoa đều dầu gội lên tóc",
-
-            "Massage nhẹ nhàng tóc và da đầu",
-
-            "Xả sạch lại tóc với nước",
-
-            "Có thể gội 2 lần nếu muốn"
-
+            "Làm ướt tóc và thoa đều dầu gội lên tóc.",
+            "Massage nhẹ nhàng tóc và da đầu.",
+            "Xả sạch tóc lại với nước.",
+            "Có thể gội 2 lần nếu cần."
         ],
 
         note:
-            "Chiết xuất Bồ kết đậm đặc có thể gây cay nhẹ nếu rơi vào mắt. Nếu sản phẩm tiếp xúc với mắt, hãy rửa sạch lại bằng nước sạch.",
-
-        descriptionLong:
-            "Dầu gội thảo dược Tóc Mây Cỏ Mềm là lựa chọn chăm sóc tóc với Bồ kết, Bồ hòn, Cỏ ngũ sắc, Hương nhu, Cỏ mần trầu cùng các loại tinh dầu và hoạt chất thiên nhiên.",
-
-        tags: [
-            "tóc mây",
-            "dầu gội",
-            "thảo dược",
-            "bồ kết",
-            "cỏ mềm",
-            "dầu gội thiên nhiên",
-            "gội đầu"
-        ]
+            "Chiết xuất Bồ kết đậm đặc có thể gây cay nhẹ nếu rơi vào mắt. Nếu sản phẩm tiếp xúc với mắt, hãy rửa sạch lại bằng nước."
     },
 
-
-    /* -----------------------------------------------------
-       SẢN PHẨM 2
-       ----------------------------------------------------- */
 
     {
         id: 2,
@@ -177,163 +161,107 @@ const products = [
 
         shortName: "Combo dầu gội xả Tóc Mây",
 
-        category: "combo",
-
-        categoryName: "Combo",
+        category: "Combo",
 
         price: 629000,
 
-        oldPrice: 680000,
+        oldPrice: 699000,
 
+        badge: "Tiết kiệm",
+
+        /* ẢNH COMBO */
         image:
             "https://media.comem.vn/uploads/2025/09/z5343266919324_35907e679d51e5d707df8213f0fa4fac_99.webp",
 
         detailImage:
             "https://media.comem.vn/uploads/2025/09/z5343266919324_35907e679d51e5d707df8213f0fa4fac_99.webp",
 
-        badge: "Combo tiết kiệm",
+        origin: "Cỏ Mềm HomeLab - Việt Nam",
 
-        origin: "Cỏ Mềm HomeLab",
-
-        weight:
-            "Combo gồm dầu gội Tóc Mây 300 gram và kem xả Tóc Mây 200 gram",
+        weight: "Combo gồm dầu gội 300 gram và kem xả ủ 200 gram",
 
         hairProblem:
-            "Tóc xơ, khô, gàu, gãy rụng và cần chăm sóc mềm mượt",
+            "Tóc xơ, khô, gàu, gãy rụng, tóc thiếu độ mềm mượt",
 
         fragrance:
-            "Hương thơm thảo dược nhẹ nhàng",
-
-        shelfLife:
-            "Theo hạn sử dụng ghi trên từng sản phẩm",
-
-        description:
-            "Combo dầu gội xả thảo dược Tóc Mây kết hợp dầu gội Tóc Mây và kem xả Tóc Mây, phù hợp cho nhu cầu chăm sóc tóc trọn bộ. Bộ sản phẩm hỗ trợ làm sạch tóc và da đầu, đồng thời chăm sóc tóc mềm mượt, chắc khỏe.",
-
-        highlights: [
-
-            "Gồm dầu gội Tóc Mây 300 gram",
-
-            "Gồm kem xả Tóc Mây 200 gram",
-
-            "Kết hợp chăm sóc tóc toàn diện",
-
             "Hương thơm thảo dược dịu nhẹ",
 
-            "Phù hợp cho tóc khô, xơ và hư tổn"
+        shelfLife:
+            "Theo hạn sử dụng được in trên từng sản phẩm",
 
+        description:
+            "Combo dầu gội xả thảo dược Tóc Mây là lựa chọn chăm sóc tóc kết hợp giữa dầu gội thảo dược và kem xả ủ Tóc Mây. Combo giúp làm sạch tóc và da đầu, đồng thời hỗ trợ dưỡng tóc mềm mượt, chắc khỏe và dễ chăm sóc hơn.",
+
+        highlights: [
+            "Gồm dầu gội thảo dược Tóc Mây",
+            "Gồm kem xả ủ Tóc Mây",
+            "Kết hợp chăm sóc tóc từ bước làm sạch đến dưỡng tóc",
+            "Hương thảo dược dịu nhẹ",
+            "Phù hợp với nhu cầu chăm sóc tóc khô, xơ"
         ],
 
         benefits: [
-
-            "Làm sạch tóc và da đầu với dầu gội Tóc Mây",
-
-            "Hỗ trợ chăm sóc tóc khô và xơ",
-
+            "Làm sạch tóc và da đầu",
+            "Hỗ trợ cải thiện tình trạng gàu",
+            "Hỗ trợ chăm sóc tóc gãy rụng",
             "Giúp tóc mềm mượt hơn",
-
-            "Hỗ trợ chăm sóc tóc gãy rụng và chẻ ngọn",
-
-            "Tiện lợi khi sử dụng theo bộ"
-
+            "Hỗ trợ dưỡng tóc khô và hư tổn",
+            "Tiện lợi khi sử dụng trọn bộ"
         ],
 
         ingredients: [
-
             "Dầu gội thảo dược Tóc Mây",
-
-            "Bồ kết",
-
+            "Cao dược liệu từ Bồ kết",
             "Bồ hòn",
-
-            "Cỏ Mần Trầu",
-
             "Cỏ Ngũ Sắc",
-
-            "Hương nhu",
-
+            "Cỏ Mần Trầu",
+            "Dâu Tằm",
             "Tinh dầu vỏ Bưởi",
-
+            "Tinh dầu Hương nhu",
             "Tinh dầu Sả chanh",
-
             "Dầu quả Bơ",
-
             "Vitamin E",
-
-            "Kem xả Tóc Mây"
-
+            "Kem xả ủ Tóc Mây"
         ],
 
         usage: [
-
-            "Làm ướt tóc và sử dụng dầu gội Tóc Mây",
-
-            "Massage nhẹ nhàng tóc và da đầu",
-
-            "Xả sạch lại với nước",
-
-            "Sau đó sử dụng Kem Xả Tóc Mây để chăm sóc phần thân và ngọn tóc",
-
-            "Xả sạch tóc sau khi sử dụng kem xả"
-
+            "Bước 1: Làm ướt tóc.",
+            "Bước 2: Sử dụng dầu gội Tóc Mây để làm sạch tóc và da đầu.",
+            "Bước 3: Massage nhẹ nhàng và xả sạch với nước.",
+            "Bước 4: Sử dụng kem xả ủ Tóc Mây ở phần thân và ngọn tóc.",
+            "Bước 5: Ủ trong thời gian phù hợp rồi xả sạch."
         ],
 
         note:
-            "Đối với dầu gội Tóc Mây, chiết xuất Bồ kết đậm đặc có thể gây cay nhẹ nếu rơi vào mắt. Nếu sản phẩm tiếp xúc với mắt, hãy rửa sạch lại bằng nước sạch.",
-
-        descriptionLong:
-            "Combo dầu gội xả thảo dược Tóc Mây là lựa chọn tiện lợi cho chu trình chăm sóc tóc với dầu gội và kem xả Tóc Mây.",
-
-        tags: [
-            "combo",
-            "combo tóc mây",
-            "dầu gội xả",
-            "tóc mây",
-            "cỏ mềm",
-            "thảo dược",
-            "chăm sóc tóc"
-        ]
+            "Nên đọc hướng dẫn sử dụng và thông tin thành phần được in trên bao bì của từng sản phẩm trong combo."
     }
-
 ];
 
 
 /* =========================================================
-   2. BIẾN GIỎ HÀNG
+   2. TRẠNG THÁI GIỎ HÀNG
    ========================================================= */
 
 let cart = [];
 
 
 /* =========================================================
-   3. LẤY GIỎ HÀNG TỪ LOCAL STORAGE
+   3. LẤY DỮ LIỆU GIỎ HÀNG TỪ LOCAL STORAGE
    ========================================================= */
 
 function loadCart() {
-
     try {
-
-        const savedCart =
-            localStorage.getItem("tocMayCart");
+        const savedCart = localStorage.getItem("tocMayCart");
 
         if (savedCart) {
+            const parsedCart = JSON.parse(savedCart);
 
-            cart =
-                JSON.parse(savedCart);
-
-        } else {
-
-            cart = [];
-
+            if (Array.isArray(parsedCart)) {
+                cart = parsedCart;
+            }
         }
-
     } catch (error) {
-
-        console.error(
-            "Không thể tải giỏ hàng:",
-            error
-        );
-
+        console.warn("Không thể đọc giỏ hàng:", error);
         cart = [];
     }
 }
@@ -344,162 +272,812 @@ function loadCart() {
    ========================================================= */
 
 function saveCart() {
-
     try {
-
         localStorage.setItem(
             "tocMayCart",
             JSON.stringify(cart)
         );
-
     } catch (error) {
-
-        console.error(
-            "Không thể lưu giỏ hàng:",
-            error
-        );
-
+        console.warn("Không thể lưu giỏ hàng:", error);
     }
 }
 
 
 /* =========================================================
-   5. FORMAT GIÁ
+   5. ĐỊNH DẠNG GIÁ TIỀN
    ========================================================= */
 
 function formatPrice(price) {
-
-    return new Intl.NumberFormat(
-        "vi-VN"
-    ).format(price) + "đ";
-
+    return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        maximumFractionDigits: 0
+    }).format(price);
 }
 
 
 /* =========================================================
    6. ESCAPE HTML
+   Giúp tránh lỗi khi đưa dữ liệu vào innerHTML.
    ========================================================= */
 
 function escapeHTML(value) {
-
     if (value === null || value === undefined) {
-
         return "";
-
     }
 
     return String(value)
-
         .replace(/&/g, "&amp;")
-
         .replace(/</g, "&lt;")
-
         .replace(/>/g, "&gt;")
-
         .replace(/"/g, "&quot;")
-
         .replace(/'/g, "&#039;");
 }
 
 
 /* =========================================================
-   7. LẤY CÁC PHẦN TỬ HTML
+   7. TÌM KHU VỰC HIỂN THỊ SẢN PHẨM
    ========================================================= */
 
-function getElement(...selectors) {
+function getProductContainer() {
+    let container =
+        document.querySelector("#productList") ||
+        document.querySelector(".product-list") ||
+        document.querySelector(".products-grid") ||
+        document.querySelector(".product-grid") ||
+        document.querySelector("#products");
 
-    for (const selector of selectors) {
+    /*
+       Nếu HTML chưa có khu vực sản phẩm,
+       tự tạo một khu vực mới.
+    */
 
-        const element =
-            document.querySelector(selector);
+    if (!container) {
+        container = document.createElement("div");
 
-        if (element) {
+        container.id = "productList";
 
-            return element;
+        container.className =
+            "product-list products-grid";
 
-        }
+        const main =
+            document.querySelector("main") ||
+            document.body;
 
+        main.appendChild(container);
     }
 
-    return null;
+    return container;
 }
 
 
 /* =========================================================
-   8. HIỂN THỊ SẢN PHẨM
+   8. CSS BỔ SUNG TỰ ĐỘNG
+   Giúp script.js vẫn hiển thị đúng ảnh và sản phẩm
+   ngay cả khi CSS chính chưa đầy đủ.
    ========================================================= */
 
-function renderProducts(productList = products) {
+function injectProductStyles() {
 
-    const productContainer =
-        getElement(
-            "#productList",
-            ".product-list",
-            ".products-grid",
-            "#products"
-        );
-
-
-    if (!productContainer) {
-
-        console.warn(
-            "Không tìm thấy khu vực hiển thị sản phẩm."
-        );
-
+    if (document.querySelector("#tocMayProductStyles")) {
         return;
     }
 
+    const style = document.createElement("style");
 
-    if (!productList.length) {
+    style.id = "tocMayProductStyles";
 
-        productContainer.innerHTML = `
+    style.textContent = `
+        /* ==============================
+           KHÔNG TÁCH CHỮ TIẾNG VIỆT
+           ============================== */
 
-            <div class="no-product">
+        body,
+        button,
+        input,
+        select,
+        textarea,
+        .product-card,
+        .product-card *,
+        .product-modal,
+        .product-modal *,
+        .cart-sidebar,
+        .cart-sidebar * {
+            letter-spacing: normal;
+        }
 
-                <div class="no-product-icon">
-                    <i class="fa-solid fa-leaf"></i>
-                </div>
+        /* ==============================
+           DANH SÁCH SẢN PHẨM
+           ============================== */
 
-                <h3>
-                    Không tìm thấy sản phẩm
-                </h3>
+        .tocmay-product-list,
+        #productList,
+        .product-list,
+        .products-grid,
+        .product-grid {
+            width: 100%;
+        }
 
-                <p>
-                    Hãy thử tìm kiếm với từ khóa khác.
-                </p>
+        #productList,
+        .tocmay-product-list {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(260px, 1fr)
+            );
+            gap: 28px;
+            padding: 20px 0;
+        }
+
+        /* ==============================
+           CARD SẢN PHẨM
+           ============================== */
+
+        .tocmay-product-card {
+            position: relative;
+            overflow: hidden;
+            background: #fffdf7;
+            border: 1px solid #e5e2cf;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(71, 85, 45, 0.08);
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .tocmay-product-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 18px 40px rgba(71, 85, 45, 0.14);
+        }
+
+        .tocmay-product-image-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #edf0d2;
+            cursor: pointer;
+        }
+
+        .tocmay-product-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .tocmay-product-card:hover
+        .tocmay-product-image {
+            transform: scale(1.04);
+        }
+
+        .tocmay-product-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 3;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: #4d6722;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .tocmay-product-info {
+            padding: 20px;
+        }
+
+        .tocmay-product-category {
+            margin-bottom: 7px;
+            color: #73854c;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .tocmay-product-name {
+            margin: 0 0 12px;
+            color: #3d4c20;
+            font-size: 20px;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+
+        .tocmay-product-description {
+            margin: 0 0 15px;
+            color: #686b5d;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .tocmay-product-price {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 17px;
+        }
+
+        .tocmay-current-price {
+            color: #4b6723;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .tocmay-old-price {
+            color: #999;
+            font-size: 14px;
+            text-decoration: line-through;
+        }
+
+        .tocmay-product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .tocmay-btn {
+            min-height: 44px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+            transition: 0.25s ease;
+        }
+
+        .tocmay-btn-detail {
+            background: #e8ecd2;
+            color: #4b6126;
+        }
+
+        .tocmay-btn-detail:hover {
+            background: #dce4bc;
+        }
+
+        .tocmay-btn-cart {
+            background: #536d27;
+            color: #fff;
+        }
+
+        .tocmay-btn-cart:hover {
+            background: #3f551c;
+        }
+
+        /* ==============================
+           MODAL CHI TIẾT
+           ============================== */
+
+        .tocmay-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(28, 37, 17, 0.65);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.25s ease;
+        }
+
+        .tocmay-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tocmay-product-modal {
+            position: relative;
+            width: min(1050px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #fffdf8;
+            border-radius: 24px;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: 0.3s ease;
+        }
+
+        .tocmay-modal-overlay.active
+        .tocmay-product-modal {
+            transform: translateY(0);
+        }
+
+        .tocmay-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            color: #3f4d24;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,.12);
+        }
+
+        .tocmay-modal-grid {
+            display: grid;
+            grid-template-columns: minmax(300px, 0.95fr) minmax(320px, 1.05fr);
+        }
+
+        .tocmay-modal-image {
+            min-height: 500px;
+            background: #e9edcc;
+        }
+
+        .tocmay-modal-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            object-fit: cover;
+        }
+
+        .tocmay-modal-content {
+            padding: 40px;
+        }
+
+        .tocmay-modal-category {
+            margin-bottom: 8px;
+            color: #7b8e4c;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .tocmay-modal-title {
+            margin: 0 0 15px;
+            color: #3e4e20;
+            font-size: 31px;
+            line-height: 1.3;
+        }
+
+        .tocmay-modal-price {
+            margin-bottom: 20px;
+            color: #4d6925;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .tocmay-modal-description {
+            color: #606456;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .tocmay-detail-section {
+            margin-top: 27px;
+            padding-top: 22px;
+            border-top: 1px solid #e3e5d7;
+        }
+
+        .tocmay-detail-section h3 {
+            margin: 0 0 14px;
+            color: #455a24;
+            font-size: 19px;
+        }
+
+        .tocmay-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .tocmay-spec {
+            padding: 13px;
+            border-radius: 12px;
+            background: #f1f3e4;
+        }
+
+        .tocmay-spec strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #53632f;
+            font-size: 12px;
+        }
+
+        .tocmay-spec span {
+            color: #4f5148;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .tocmay-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #55584e;
+        }
+
+        .tocmay-list li {
+            margin-bottom: 9px;
+            line-height: 1.6;
+        }
+
+        .tocmay-ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tocmay-ingredient {
+            display: inline-block;
+            padding: 8px 11px;
+            border-radius: 999px;
+            background: #edf0dc;
+            color: #53652c;
+            font-size: 13px;
+        }
+
+        .tocmay-herbal {
+            display: grid;
+            gap: 10px;
+        }
+
+        .tocmay-herbal-item {
+            padding: 13px;
+            border-left: 3px solid #79933d;
+            border-radius: 0 10px 10px 0;
+            background: #f5f5e9;
+        }
+
+        .tocmay-herbal-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #4c6129;
+        }
+
+        .tocmay-herbal-item span {
+            color: #65675c;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tocmay-note {
+            padding: 15px;
+            border-radius: 12px;
+            background: #fff5dc;
+            color: #6c5a32;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .tocmay-modal-add {
+            width: 100%;
+            margin-top: 24px;
+            padding: 15px;
+            border: none;
+            border-radius: 13px;
+            background: #536d27;
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .tocmay-modal-add:hover {
+            background: #40551d;
+        }
+
+        /* ==============================
+           GIỎ HÀNG
+           ============================== */
+
+        .tocmay-cart-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9996;
+            background: rgba(0,0,0,.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: .25s ease;
+        }
+
+        .tocmay-cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tocmay-cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 9997;
+            width: min(440px, 94vw);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #fffdf8;
+            box-shadow: -15px 0 45px rgba(0,0,0,.15);
+            transform: translateX(100%);
+            transition: .3s ease;
+        }
+
+        .tocmay-cart-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .tocmay-cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid #e6e6db;
+        }
+
+        .tocmay-cart-header h2 {
+            margin: 0;
+            color: #435423;
+            font-size: 22px;
+        }
+
+        .tocmay-cart-close {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: #edf0dd;
+            color: #4e602a;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .tocmay-cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px;
+        }
+
+        .tocmay-cart-item {
+            display: grid;
+            grid-template-columns: 75px 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ecece2;
+        }
+
+        .tocmay-cart-item img {
+            width: 75px;
+            height: 75px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .tocmay-cart-item-name {
+            margin: 0 0 5px;
+            color: #4b592e;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .tocmay-cart-item-price {
+            color: #536b29;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .tocmay-cart-controls {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 9px;
+        }
+
+        .tocmay-quantity-btn {
+            width: 27px;
+            height: 27px;
+            border: 1px solid #d9ddca;
+            border-radius: 7px;
+            background: #f4f5eb;
+            color: #53642c;
+            cursor: pointer;
+        }
+
+        .tocmay-remove {
+            margin-left: auto;
+            border: none;
+            background: none;
+            color: #a36363;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .tocmay-cart-empty {
+            padding: 50px 20px;
+            text-align: center;
+            color: #77796f;
+        }
+
+        .tocmay-cart-footer {
+            padding: 20px;
+            border-top: 1px solid #e5e5db;
+        }
+
+        .tocmay-cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #455522;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .tocmay-checkout {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #536d27;
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 800;
+        }
+
+        /* ==============================
+           THÔNG BÁO
+           ============================== */
+
+        .tocmay-toast {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 10000;
+            max-width: 350px;
+            padding: 13px 18px;
+            border-radius: 12px;
+            background: #4e6825;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: .25s ease;
+        }
+
+        .tocmay-toast.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        body.tocmay-modal-open {
+            overflow: hidden;
+        }
+
+        /* ==============================
+           RESPONSIVE
+           ============================== */
+
+        @media (max-width: 800px) {
+
+            .tocmay-modal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tocmay-modal-image,
+            .tocmay-modal-image img {
+                min-height: 320px;
+                height: 320px;
+            }
+
+            .tocmay-modal-content {
+                padding: 25px;
+            }
+
+            .tocmay-modal-title {
+                font-size: 25px;
+            }
+
+            .tocmay-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+
+            #productList,
+            .tocmay-product-list {
+                grid-template-columns: 1fr;
+            }
+
+            .tocmay-product-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .tocmay-modal-overlay {
+                padding: 10px;
+            }
+
+            .tocmay-product-modal {
+                max-height: 94vh;
+                border-radius: 17px;
+            }
+
+            .tocmay-modal-content {
+                padding: 20px;
+            }
+        }
+    `;
+
+    document.head.appendChild(style);
+}
+
+
+/* =========================================================
+   9. TẠO CARD SẢN PHẨM
+   ========================================================= */
+
+function createProductCard(product) {
+
+    return `
+        <article
+            class="tocmay-product-card"
+            data-product-id="${product.id}"
+        >
+
+            <div
+                class="tocmay-product-image-wrap"
+                onclick="openProductDetail(${product.id})"
+                role="button"
+                tabindex="0"
+                aria-label="Xem ${escapeHTML(product.name)}"
+            >
+
+                <img
+                    class="tocmay-product-image"
+                    src="${product.image}"
+                    alt="${escapeHTML(product.name)}"
+                    loading="lazy"
+                    onerror="handleImageError(this)"
+                >
+
+                <span class="tocmay-product-badge">
+                    ${escapeHTML(product.badge)}
+                </span>
 
             </div>
 
-        `;
 
-        return;
-    }
+            <div class="tocmay-product-info">
+
+                <div class="tocmay-product-category">
+                    ${escapeHTML(product.category)}
+                </div>
 
 
-    productContainer.innerHTML =
-        productList.map(product => `
+                <h3 class="tocmay-product-name">
+                    ${escapeHTML(product.name)}
+                </h3>
 
-            <article
-                class="product-card"
-                data-product-id="${product.id}"
-                onclick="openProductDetail(${product.id})"
-            >
 
-                <div class="product-image-wrap">
+                <p class="tocmay-product-description">
+                    ${escapeHTML(product.description)}
+                </p>
 
-                    <img
-                        class="product-image"
-                        src="${product.image}"
-                        alt="${escapeHTML(product.name)}"
-                        loading="lazy"
-                        onerror="handleImageError(this)"
-                    >
+
+                <div class="tocmay-product-price">
+
+                    <span class="tocmay-current-price">
+                        ${formatPrice(product.price)}
+                    </span>
 
                     ${
-                        product.badge
+                        product.oldPrice
                             ? `
-                                <span class="product-badge">
-                                    ${escapeHTML(product.badge)}
+                                <span class="tocmay-old-price">
+                                    ${formatPrice(product.oldPrice)}
                                 </span>
                               `
                             : ""
@@ -508,94 +1086,73 @@ function renderProducts(productList = products) {
                 </div>
 
 
-                <div class="product-content">
+                <div class="tocmay-product-actions">
 
-                    <span class="product-category">
-                        ${escapeHTML(product.categoryName)}
-                    </span>
-
-
-                    <h3 class="product-name">
-                        ${escapeHTML(product.name)}
-                    </h3>
-
-
-                    <p class="product-description">
-
-                        ${escapeHTML(
-                            product.description.substring(
-                                0,
-                                120
-                            )
-                        )}...
-
-                    </p>
+                    <button
+                        type="button"
+                        class="tocmay-btn tocmay-btn-detail"
+                        onclick="openProductDetail(${product.id})"
+                    >
+                        Xem chi tiết
+                    </button>
 
 
-                    <div class="product-bottom">
-
-                        <div class="product-price">
-
-                            <strong>
-                                ${formatPrice(product.price)}
-                            </strong>
-
-                            ${
-                                product.oldPrice
-                                    ? `
-                                        <del>
-                                            ${formatPrice(
-                                                product.oldPrice
-                                            )}
-                                        </del>
-                                      `
-                                    : ""
-                            }
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="product-add-button"
-                            onclick="event.stopPropagation(); addToCart(${product.id})"
-                            aria-label="Thêm ${escapeHTML(product.name)} vào giỏ"
-                        >
-
-                            <i class="fa-solid fa-plus"></i>
-
-                        </button>
-
-                    </div>
+                    <button
+                        type="button"
+                        class="tocmay-btn tocmay-btn-cart"
+                        onclick="addToCart(${product.id})"
+                    >
+                        Thêm vào giỏ
+                    </button>
 
                 </div>
 
-            </article>
+            </div>
 
-        `).join("");
-
+        </article>
+    `;
 }
 
 
 /* =========================================================
-   9. XỬ LÝ ẢNH LỖI
+   10. HIỂN THỊ TẤT CẢ SẢN PHẨM
    ========================================================= */
 
-function handleImageError(image) {
+function renderProducts(productArray = products) {
 
-    image.classList.add(
-        "image-error"
-    );
+    const container = getProductContainer();
 
+    if (!productArray.length) {
 
-    image.alt =
-        "Hình ảnh sản phẩm Tóc Mây";
+        container.innerHTML = `
+            <div
+                class="tocmay-empty-products"
+                style="
+                    grid-column: 1 / -1;
+                    padding: 50px 20px;
+                    text-align: center;
+                    color: #6b6d62;
+                "
+            >
+                <h3>Không tìm thấy sản phẩm</h3>
 
+                <p>
+                    Bạn hãy thử từ khóa hoặc lựa chọn bộ lọc khác.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = productArray
+        .map(createProductCard)
+        .join("");
 }
 
 
 /* =========================================================
-   10. TÌM KIẾM SẢN PHẨM
+   11. TÌM KIẾM SẢN PHẨM
    ========================================================= */
 
 function searchProducts(keyword) {
@@ -605,744 +1162,474 @@ function searchProducts(keyword) {
             .trim()
             .toLowerCase();
 
-
     if (!value) {
-
         renderProducts(products);
-
         return;
-
     }
 
+    const result = products.filter(product => {
 
-    const result =
-        products.filter(product => {
+        const searchableText = [
+            product.name,
+            product.shortName,
+            product.category,
+            product.description,
+            product.origin,
+            product.hairProblem,
+            ...(product.ingredients || [])
+        ]
+            .join(" ")
+            .toLowerCase();
 
-            const searchText = [
-
-                product.name,
-
-                product.shortName,
-
-                product.categoryName,
-
-                product.description,
-
-                product.origin,
-
-                ...(product.ingredients || []),
-
-                ...(product.tags || [])
-
-            ]
-                .join(" ")
-                .toLowerCase();
-
-
-            return searchText.includes(value);
-
-        });
-
+        return searchableText.includes(value);
+    });
 
     renderProducts(result);
-
 }
 
 
 /* =========================================================
-   11. LỌC SẢN PHẨM
+   12. LỌC SẢN PHẨM
    ========================================================= */
 
 function filterProducts(category) {
 
-    const value =
-        String(category || "")
-            .trim()
-            .toLowerCase();
-
-
     if (
-        !value ||
-        value === "all" ||
-        value === "tat-ca" ||
-        value === "tất cả"
+        !category ||
+        category === "all" ||
+        category === "tat-ca" ||
+        category === "Tất cả"
     ) {
-
         renderProducts(products);
-
         return;
-
     }
 
-
-    const filtered =
-        products.filter(
-            product =>
-                product.category === value
-        );
-
-
-    renderProducts(filtered);
-
-}
-
-
-/* =========================================================
-   12. KẾT HỢP TÌM KIẾM + LỌC
-   ========================================================= */
-
-function filterAndSearchProducts() {
-
-    const searchInput =
-        getElement(
-            "#searchInput",
-            "#productSearch",
-            ".search-input"
-        );
-
-
-    const activeFilter =
-        document.querySelector(
-            ".filter-button.active, .category-button.active"
-        );
-
-
-    const keyword =
-        searchInput
-            ? searchInput.value
-            : "";
-
-
-    const category =
-        activeFilter
-            ? activeFilter.dataset.category ||
-              activeFilter.dataset.filter ||
-              "all"
-            : "all";
-
-
-    let result =
-        [...products];
-
-
-    /* Lọc theo danh mục */
-
-    if (
-        category !== "all" &&
-        category !== "tat-ca" &&
-        category !== "tất cả"
-    ) {
-
-        result =
-            result.filter(
-                product =>
-                    product.category === category
-            );
-
-    }
-
-
-    /* Tìm kiếm */
-
-    const searchValue =
-        keyword
+    const normalizedCategory =
+        String(category)
             .trim()
             .toLowerCase();
 
-
-    if (searchValue) {
-
-        result =
-            result.filter(product => {
-
-                const text = [
-
-                    product.name,
-
-                    product.shortName,
-
-                    product.description,
-
-                    product.categoryName,
-
-                    ...(product.ingredients || []),
-
-                    ...(product.tags || [])
-
-                ]
-                    .join(" ")
-                    .toLowerCase();
-
-
-                return text.includes(
-                    searchValue
-                );
-
-            });
-
-    }
-
+    const result = products.filter(product =>
+        product.category
+            .toLowerCase()
+            .includes(normalizedCategory)
+    );
 
     renderProducts(result);
-
 }
 
 
 /* =========================================================
-   13. TẠO MODAL CHI TIẾT SẢN PHẨM
+   13. TẠO MODAL CHI TIẾT
    ========================================================= */
 
 function createProductModal() {
 
-    if (
-        document.getElementById(
-            "productDetailModal"
-        )
-    ) {
-
+    if (document.querySelector("#tocmayProductModal")) {
         return;
-
     }
 
+    const modal = document.createElement("div");
 
-    const modal =
-        document.createElement("div");
+    modal.id = "tocmayProductModal";
 
-
-    modal.id =
-        "productDetailModal";
-
-
-    modal.className =
-        "product-detail-modal";
-
+    modal.className = "tocmay-modal-overlay";
 
     modal.innerHTML = `
-
         <div
-            class="product-detail-overlay"
-            onclick="closeProductDetail()"
-        ></div>
-
-
-        <div
-            class="product-detail-content"
+            class="tocmay-product-modal"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="detailProductName"
+            aria-label="Thông tin sản phẩm"
         >
 
             <button
                 type="button"
-                class="product-detail-close"
+                class="tocmay-modal-close"
                 onclick="closeProductDetail()"
                 aria-label="Đóng"
             >
-
-                <i class="fa-solid fa-xmark"></i>
-
+                ×
             </button>
 
 
-            <div
-                id="productDetailBody"
-                class="product-detail-body"
-            ></div>
+            <div id="tocmayProductDetail"></div>
 
         </div>
-
     `;
 
+    modal.addEventListener("click", function(event) {
+
+        if (event.target === modal) {
+            closeProductDetail();
+        }
+
+    });
 
     document.body.appendChild(modal);
-
 }
 
 
 /* =========================================================
-   14. MỞ CHI TIẾT SẢN PHẨM
+   14. TẠO NỘI DUNG CHI TIẾT SẢN PHẨM
    ========================================================= */
 
-function openProductDetail(productId) {
+function createProductDetailHTML(product) {
 
-    createProductModal();
-
-
-    const product =
-        products.find(
-            item =>
-                item.id === Number(productId)
-        );
-
-
-    if (!product) {
-
-        return;
-
-    }
+    const ingredientsHTML =
+        product.ingredients
+            .map(item => `
+                <span class="tocmay-ingredient">
+                    ${escapeHTML(item)}
+                </span>
+            `)
+            .join("");
 
 
-    const modal =
-        document.getElementById(
-            "productDetailModal"
-        );
+    const benefitsHTML =
+        product.benefits
+            .map(item => `
+                <li>${escapeHTML(item)}</li>
+            `)
+            .join("");
 
 
-    const body =
-        document.getElementById(
-            "productDetailBody"
-        );
+    const highlightsHTML =
+        product.highlights
+            .map(item => `
+                <li>${escapeHTML(item)}</li>
+            `)
+            .join("");
 
 
-    if (!modal || !body) {
-
-        return;
-
-    }
-
-
-    body.innerHTML = `
-
-        <div class="product-detail-grid">
+    const usageHTML =
+        product.usage
+            .map(item => `
+                <li>${escapeHTML(item)}</li>
+            `)
+            .join("");
 
 
-            <!-- =========================================
-                 ẢNH
-                 ========================================= -->
+    const herbalHTML =
+        product.herbalIngredients
+            ? `
+                <div class="tocmay-herbal">
 
-            <div class="product-detail-image">
+                    ${product.herbalIngredients
+                        .map(item => `
+                            <div class="tocmay-herbal-item">
+
+                                <strong>
+                                    ${escapeHTML(item.name)}
+                                </strong>
+
+                                <span>
+                                    ${escapeHTML(item.description)}
+                                </span>
+
+                            </div>
+                        `)
+                        .join("")}
+
+                </div>
+              `
+            : "";
+
+
+    return `
+        <div class="tocmay-modal-grid">
+
+            <!-- =============================
+                 ẢNH SẢN PHẨM
+                 ============================= -->
+
+            <div class="tocmay-modal-image">
 
                 <img
                     src="${product.detailImage || product.image}"
                     alt="${escapeHTML(product.name)}"
-                    onerror="handleImageError(this)"
+                    onerror="
+                        this.onerror=null;
+                        this.src='${product.image}';
+                    "
                 >
 
             </div>
 
 
-            <!-- =========================================
-                 THÔNG TIN
-                 ========================================= -->
+            <!-- =============================
+                 THÔNG TIN SẢN PHẨM
+                 ============================= -->
 
-            <div class="product-detail-info">
+            <div class="tocmay-modal-content">
 
-
-                <span class="detail-category">
-
-                    ${escapeHTML(
-                        product.categoryName
-                    )}
-
-                </span>
-
-
-                <h2 id="detailProductName">
-
-                    ${escapeHTML(
-                        product.name
-                    )}
-
-                </h2>
-
-
-                <div class="detail-price">
-
-                    <strong>
-                        ${formatPrice(
-                            product.price
-                        )}
-                    </strong>
-
-
-                    ${
-                        product.oldPrice
-                            ? `
-                                <del>
-                                    ${formatPrice(
-                                        product.oldPrice
-                                    )}
-                                </del>
-                              `
-                            : ""
-                    }
-
+                <div class="tocmay-modal-category">
+                    ${escapeHTML(product.category)}
                 </div>
 
 
-                <p class="detail-description">
+                <h2 class="tocmay-modal-title">
+                    ${escapeHTML(product.name)}
+                </h2>
 
-                    ${escapeHTML(
-                        product.description
-                    )}
 
+                <div class="tocmay-modal-price">
+                    ${formatPrice(product.price)}
+                </div>
+
+
+                <p class="tocmay-modal-description">
+                    ${escapeHTML(product.description)}
                 </p>
 
 
                 <!-- THÔNG SỐ -->
 
-                <div class="detail-section">
+                <section class="tocmay-detail-section">
 
                     <h3>
-                        <i class="fa-solid fa-circle-info"></i>
-                        Thông tin sản phẩm
+                        Thông số sản phẩm
                     </h3>
 
 
-                    <div class="detail-specs">
+                    <div class="tocmay-specs">
 
-
-                        <div class="detail-spec-item">
-
+                        <div class="tocmay-spec">
+                            <strong>Xuất xứ</strong>
                             <span>
-                                Xuất xứ
+                                ${escapeHTML(product.origin)}
                             </span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    product.origin
-                                )}
-                            </strong>
-
                         </div>
 
 
-                        <div class="detail-spec-item">
-
+                        <div class="tocmay-spec">
+                            <strong>Khối lượng</strong>
                             <span>
-                                Khối lượng
+                                ${escapeHTML(product.weight)}
                             </span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    product.weight
-                                )}
-                            </strong>
-
                         </div>
 
 
-                        <div class="detail-spec-item">
-
+                        <div class="tocmay-spec">
+                            <strong>Vấn đề của tóc</strong>
                             <span>
-                                Vấn đề của tóc
+                                ${escapeHTML(product.hairProblem)}
                             </span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    product.hairProblem
-                                )}
-                            </strong>
-
                         </div>
 
 
-                        <div class="detail-spec-item">
-
+                        <div class="tocmay-spec">
+                            <strong>Mùi hương</strong>
                             <span>
-                                Mùi hương
+                                ${escapeHTML(product.fragrance)}
                             </span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    product.fragrance
-                                )}
-                            </strong>
-
                         </div>
 
 
-                        <div class="detail-spec-item">
-
+                        <div class="tocmay-spec">
+                            <strong>Hạn sử dụng</strong>
                             <span>
-                                Hạn sử dụng
+                                ${escapeHTML(product.shelfLife)}
                             </span>
-
-                            <strong>
-                                ${escapeHTML(
-                                    product.shelfLife
-                                )}
-                            </strong>
-
                         </div>
-
 
                     </div>
 
-                </div>
+                </section>
 
 
                 <!-- ƯU ĐIỂM -->
 
-                <div class="detail-section">
+                <section class="tocmay-detail-section">
 
                     <h3>
-                        <i class="fa-solid fa-leaf"></i>
                         Ưu điểm nổi bật
                     </h3>
 
-
-                    <ul class="detail-list">
-
-                        ${
-                            product.highlights
-                                .map(item => `
-
-                                    <li>
-
-                                        <i class="fa-solid fa-check"></i>
-
-                                        <span>
-                                            ${escapeHTML(item)}
-                                        </span>
-
-                                    </li>
-
-                                `)
-                                .join("")
-                        }
-
+                    <ul class="tocmay-list">
+                        ${highlightsHTML}
                     </ul>
 
-                </div>
+                </section>
 
 
                 <!-- CÔNG DỤNG -->
 
-                <div class="detail-section">
+                <section class="tocmay-detail-section">
 
                     <h3>
-                        <i class="fa-solid fa-heart"></i>
                         Công dụng
                     </h3>
 
-
-                    <ul class="detail-list">
-
-                        ${
-                            product.benefits
-                                .map(item => `
-
-                                    <li>
-
-                                        <i class="fa-solid fa-check"></i>
-
-                                        <span>
-                                            ${escapeHTML(item)}
-                                        </span>
-
-                                    </li>
-
-                                `)
-                                .join("")
-                        }
-
+                    <ul class="tocmay-list">
+                        ${benefitsHTML}
                     </ul>
 
-                </div>
+                </section>
 
 
                 <!-- THÀNH PHẦN -->
 
-                <div class="detail-section">
+                <section class="tocmay-detail-section">
 
                     <h3>
-                        <i class="fa-solid fa-seedling"></i>
                         Thành phần
                     </h3>
 
 
-                    <div class="ingredient-tags">
-
-                        ${
-                            product.ingredients
-                                .map(item => `
-
-                                    <span class="ingredient-tag">
-
-                                        ${escapeHTML(item)}
-
-                                    </span>
-
-                                `)
-                                .join("")
-                        }
-
+                    <div class="tocmay-ingredients">
+                        ${ingredientsHTML}
                     </div>
 
-                </div>
+                </section>
+
+
+                ${
+                    herbalHTML
+                        ? `
+                            <section class="tocmay-detail-section">
+
+                                <h3>
+                                    Thành phần thảo dược nổi bật
+                                </h3>
+
+                                ${herbalHTML}
+
+                            </section>
+                          `
+                        : ""
+                }
 
 
                 <!-- HƯỚNG DẪN -->
 
-                <div class="detail-section">
+                <section class="tocmay-detail-section">
 
                     <h3>
-                        <i class="fa-solid fa-list-check"></i>
                         Hướng dẫn sử dụng
                     </h3>
 
-
-                    <ol class="usage-list">
-
-                        ${
-                            product.usage
-                                .map(item => `
-
-                                    <li>
-                                        ${escapeHTML(item)}
-                                    </li>
-
-                                `)
-                                .join("")
-                        }
-
+                    <ol class="tocmay-list">
+                        ${usageHTML}
                     </ol>
 
-                </div>
+                </section>
 
 
                 <!-- LƯU Ý -->
 
-                <div class="detail-note">
+                <section class="tocmay-detail-section">
 
-                    <strong>
+                    <h3>
+                        Lưu ý
+                    </h3>
 
-                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div class="tocmay-note">
+                        ${escapeHTML(product.note)}
+                    </div>
 
-                        Lưu ý:
-
-                    </strong>
-
-                    <span>
-
-                        ${escapeHTML(
-                            product.note
-                        )}
-
-                    </span>
-
-                </div>
+                </section>
 
 
-                <!-- NÚT GIỎ HÀNG -->
+                <!-- THÊM GIỎ -->
 
-                <div class="detail-actions">
-
-                    <button
-                        type="button"
-                        class="detail-add-cart"
-                        onclick="addToCartFromDetail(${product.id})"
-                    >
-
-                        <i class="fa-solid fa-cart-shopping"></i>
-
-                        Thêm vào giỏ hàng
-
-                    </button>
-
-                </div>
-
+                <button
+                    type="button"
+                    class="tocmay-modal-add"
+                    onclick="addToCartFromDetail(${product.id})"
+                >
+                    Thêm sản phẩm vào giỏ hàng
+                </button>
 
             </div>
 
         </div>
-
     `;
-
-
-    modal.classList.add(
-        "show"
-    );
-
-
-    document.body.classList.add(
-        "modal-open"
-    );
-
 }
 
 
 /* =========================================================
-   15. ĐÓNG CHI TIẾT
+   15. MỞ CHI TIẾT SẢN PHẨM
+   ========================================================= */
+
+function openProductDetail(productId) {
+
+    const product =
+        products.find(item => item.id === Number(productId));
+
+    if (!product) {
+        return;
+    }
+
+    createProductModal();
+
+    const modal =
+        document.querySelector("#tocmayProductModal");
+
+    const content =
+        document.querySelector("#tocmayProductDetail");
+
+    content.innerHTML =
+        createProductDetailHTML(product);
+
+    modal.classList.add("active");
+
+    document.body.classList.add("tocmay-modal-open");
+}
+
+
+/* =========================================================
+   16. ĐÓNG CHI TIẾT
    ========================================================= */
 
 function closeProductDetail() {
 
     const modal =
-        document.getElementById(
-            "productDetailModal"
-        );
-
+        document.querySelector("#tocmayProductModal");
 
     if (!modal) {
-
         return;
-
     }
 
+    modal.classList.remove("active");
 
-    modal.classList.remove(
-        "show"
-    );
-
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
+    document.body.classList.remove("tocmay-modal-open");
 }
 
 
 /* =========================================================
-   16. THÊM SẢN PHẨM VÀO GIỎ
+   17. THÊM SẢN PHẨM VÀO GIỎ
    ========================================================= */
 
-function addToCart(productId, quantity = 1) {
+function addToCart(productId) {
+
+    const id = Number(productId);
 
     const product =
-        products.find(
-            item =>
-                item.id === Number(productId)
-        );
-
+        products.find(item => item.id === id);
 
     if (!product) {
-
         return;
-
     }
 
+    const existingItem =
+        cart.find(item => item.id === id);
 
-    const existing =
-        cart.find(
-            item =>
-                item.id === product.id
-        );
+    if (existingItem) {
 
-
-    if (existing) {
-
-        existing.quantity += quantity;
+        existingItem.quantity += 1;
 
     } else {
 
         cart.push({
-
             id: product.id,
-
             name: product.name,
-
             price: product.price,
-
             image: product.image,
-
-            quantity: quantity
-
+            quantity: 1
         });
 
     }
-
 
     saveCart();
 
@@ -1351,531 +1638,537 @@ function addToCart(productId, quantity = 1) {
     showCartMessage(
         `${product.name} đã được thêm vào giỏ hàng.`
     );
-
 }
 
 
 /* =========================================================
-   17. THÊM TỪ TRANG CHI TIẾT
+   18. THÊM TỪ MODAL
    ========================================================= */
 
 function addToCartFromDetail(productId) {
 
-    addToCart(
-        productId,
-        1
-    );
-
+    addToCart(productId);
 
     closeProductDetail();
 
+    setTimeout(() => {
+        openCart();
+    }, 250);
 }
 
 
 /* =========================================================
-   18. CẬP NHẬT GIỎ HÀNG
+   19. TÍNH SỐ LƯỢNG
+   ========================================================= */
+
+function getCartQuantity() {
+
+    return cart.reduce(
+        (total, item) =>
+            total + Number(item.quantity || 0),
+        0
+    );
+}
+
+
+/* =========================================================
+   20. TÍNH TỔNG TIỀN
+   ========================================================= */
+
+function getCartTotal() {
+
+    return cart.reduce(
+        (total, item) =>
+            total +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+        0
+    );
+}
+
+
+/* =========================================================
+   21. CẬP NHẬT GIỎ HÀNG
    ========================================================= */
 
 function updateCart() {
 
+    const cartCount =
+        document.querySelector("#cartCount");
+
+    if (cartCount) {
+        cartCount.textContent =
+            getCartQuantity();
+    }
+
+
     const cartItems =
-        getElement(
-            "#cartItems",
-            ".cart-items"
-        );
+        document.querySelector("#cartItems") ||
+        document.querySelector(".cart-items") ||
+        document.querySelector("#tocmayCartItems");
 
 
     const cartTotal =
-        getElement(
-            "#cartTotal",
-            ".cart-total-price"
-        );
+        document.querySelector("#cartTotal") ||
+        document.querySelector(".cart-total");
 
-
-    const cartCount =
-        getElement(
-            "#cartCount",
-            ".cart-count"
-        );
-
-
-    /* Tổng số lượng */
-
-    const totalQuantity =
-        cart.reduce(
-            (total, item) =>
-                total + item.quantity,
-            0
-        );
-
-
-    /* Tổng tiền */
-
-    const totalPrice =
-        cart.reduce(
-            (total, item) =>
-                total +
-                item.price *
-                item.quantity,
-            0
-        );
-
-
-    /* Cập nhật số lượng */
-
-    if (cartCount) {
-
-        cartCount.textContent =
-            totalQuantity;
-
-    }
-
-
-    /* Cập nhật tổng tiền */
 
     if (cartTotal) {
-
         cartTotal.textContent =
-            formatPrice(totalPrice);
-
+            formatPrice(getCartTotal());
     }
 
-
-    /* Nếu không có khu vực giỏ */
 
     if (!cartItems) {
-
+        updateInternalCart();
         return;
-
     }
 
-
-    /* Giỏ trống */
 
     if (!cart.length) {
 
         cartItems.innerHTML = `
-
-            <div class="empty-cart">
-
-                <div class="empty-cart-icon">
-
-                    <i class="fa-solid fa-bag-shopping"></i>
-
-                </div>
-
-                <h3>
-                    Giỏ hàng đang trống
-                </h3>
-
+            <div class="tocmay-cart-empty">
+                <p>Giỏ hàng đang trống.</p>
                 <p>
-                    Hãy chọn một sản phẩm Tóc Mây
-                    để bắt đầu mua sắm.
+                    Hãy chọn sản phẩm Tóc Mây bạn yêu thích.
                 </p>
-
             </div>
-
         `;
 
         return;
-
     }
 
 
-    /* Có sản phẩm */
-
     cartItems.innerHTML =
-        cart.map(item => `
-
-            <div
-                class="cart-item"
-                data-cart-id="${item.id}"
-            >
-
-                <div class="cart-item-image">
-
-                    <img
-                        src="${item.image}"
-                        alt="${escapeHTML(item.name)}"
-                        onerror="handleImageError(this)"
-                    >
-
-                </div>
-
-
-                <div class="cart-item-info">
-
-                    <h4>
-
-                        ${escapeHTML(
-                            item.name
-                        )}
-
-                    </h4>
-
-
-                    <strong class="cart-item-price">
-
-                        ${formatPrice(
-                            item.price
-                        )}
-
-                    </strong>
-
-
-                    <div class="cart-item-controls">
-
-
-                        <button
-                            type="button"
-                            onclick="decreaseQuantity(${item.id})"
-                            aria-label="Giảm số lượng"
-                        >
-
-                            <i class="fa-solid fa-minus"></i>
-
-                        </button>
-
-
-                        <span>
-                            ${item.quantity}
-                        </span>
-
-
-                        <button
-                            type="button"
-                            onclick="increaseQuantity(${item.id})"
-                            aria-label="Tăng số lượng"
-                        >
-
-                            <i class="fa-solid fa-plus"></i>
-
-                        </button>
-
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="cart-remove"
-                    onclick="removeFromCart(${item.id})"
-                    aria-label="Xóa sản phẩm"
-                >
-
-                    <i class="fa-solid fa-trash"></i>
-
-                </button>
-
-            </div>
-
-        `).join("");
-
+        cart
+            .map(createCartItem)
+            .join("");
 }
 
 
 /* =========================================================
-   19. TĂNG SỐ LƯỢNG
+   22. TẠO ITEM GIỎ HÀNG
+   ========================================================= */
+
+function createCartItem(item) {
+
+    return `
+        <div class="tocmay-cart-item">
+
+            <img
+                src="${item.image}"
+                alt="${escapeHTML(item.name)}"
+                onerror="handleImageError(this)"
+            >
+
+
+            <div>
+
+                <p class="tocmay-cart-item-name">
+                    ${escapeHTML(item.name)}
+                </p>
+
+
+                <div class="tocmay-cart-item-price">
+                    ${formatPrice(item.price)}
+                </div>
+
+
+                <div class="tocmay-cart-controls">
+
+                    <button
+                        type="button"
+                        class="tocmay-quantity-btn"
+                        onclick="decreaseQuantity(${item.id})"
+                    >
+                        −
+                    </button>
+
+
+                    <strong>
+                        ${item.quantity}
+                    </strong>
+
+
+                    <button
+                        type="button"
+                        class="tocmay-quantity-btn"
+                        onclick="increaseQuantity(${item.id})"
+                    >
+                        +
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="tocmay-remove"
+                        onclick="removeFromCart(${item.id})"
+                    >
+                        Xóa
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   23. TỰ TẠO GIỎ HÀNG NẾU HTML CHƯA CÓ
+   ========================================================= */
+
+function createCartUI() {
+
+    if (
+        document.querySelector("#tocmayCartSidebar") ||
+        document.querySelector("#cartSidebar")
+    ) {
+        return;
+    }
+
+
+    const overlay =
+        document.createElement("div");
+
+    overlay.id = "tocmayCartOverlay";
+
+    overlay.className =
+        "tocmay-cart-overlay";
+
+
+    const sidebar =
+        document.createElement("aside");
+
+    sidebar.id = "tocmayCartSidebar";
+
+    sidebar.className =
+        "tocmay-cart-sidebar";
+
+
+    sidebar.innerHTML = `
+
+        <div class="tocmay-cart-header">
+
+            <h2>
+                Giỏ hàng
+            </h2>
+
+            <button
+                type="button"
+                class="tocmay-cart-close"
+                onclick="closeCart()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="tocmayCartItems"
+            class="tocmay-cart-items"
+        ></div>
+
+
+        <div class="tocmay-cart-footer">
+
+            <div class="tocmay-cart-total">
+
+                <span>
+                    Tổng cộng
+                </span>
+
+                <strong id="tocmayCartTotal">
+                    0 ₫
+                </strong>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="tocmay-checkout"
+                onclick="checkoutCart()"
+            >
+                Tiến hành đặt hàng
+            </button>
+
+        </div>
+
+    `;
+
+
+    overlay.addEventListener(
+        "click",
+        closeCart
+    );
+
+
+    document.body.appendChild(overlay);
+
+    document.body.appendChild(sidebar);
+}
+
+
+/* =========================================================
+   24. CẬP NHẬT GIỎ HÀNG TỰ TẠO
+   ========================================================= */
+
+function updateInternalCart() {
+
+    const items =
+        document.querySelector("#tocmayCartItems");
+
+    const total =
+        document.querySelector("#tocmayCartTotal");
+
+
+    if (!items || !total) {
+        return;
+    }
+
+
+    if (!cart.length) {
+
+        items.innerHTML = `
+            <div class="tocmay-cart-empty">
+                <p>Giỏ hàng đang trống.</p>
+            </div>
+        `;
+
+    } else {
+
+        items.innerHTML =
+            cart
+                .map(createCartItem)
+                .join("");
+    }
+
+
+    total.textContent =
+        formatPrice(getCartTotal());
+}
+
+
+/* =========================================================
+   25. TĂNG SỐ LƯỢNG
    ========================================================= */
 
 function increaseQuantity(productId) {
 
     const item =
         cart.find(
-            product =>
-                product.id === Number(productId)
+            item => item.id === Number(productId)
         );
 
-
     if (!item) {
-
         return;
-
     }
 
-
-    item.quantity++;
-
+    item.quantity += 1;
 
     saveCart();
 
     updateCart();
-
 }
 
 
 /* =========================================================
-   20. GIẢM SỐ LƯỢNG
+   26. GIẢM SỐ LƯỢNG
    ========================================================= */
 
 function decreaseQuantity(productId) {
 
     const item =
         cart.find(
-            product =>
-                product.id === Number(productId)
+            item => item.id === Number(productId)
         );
 
-
     if (!item) {
-
         return;
-
     }
 
-
-    item.quantity--;
-
+    item.quantity -= 1;
 
     if (item.quantity <= 0) {
 
         cart =
             cart.filter(
-                product =>
-                    product.id !==
-                    Number(productId)
+                item => item.id !== Number(productId)
             );
-
     }
-
 
     saveCart();
 
     updateCart();
-
 }
 
 
 /* =========================================================
-   21. XÓA SẢN PHẨM
+   27. XÓA SẢN PHẨM
    ========================================================= */
 
 function removeFromCart(productId) {
 
-    const product =
-        products.find(
-            item =>
-                item.id === Number(productId)
-        );
-
+    const id = Number(productId);
 
     cart =
-        cart.filter(
-            item =>
-                item.id !== Number(productId)
-        );
-
+        cart.filter(item => item.id !== id);
 
     saveCart();
 
     updateCart();
-
-
-    if (product) {
-
-        showCartMessage(
-            `${product.name} đã được xóa khỏi giỏ hàng.`
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   22. XÓA TOÀN BỘ GIỎ HÀNG
-   ========================================================= */
-
-function clearCart() {
-
-    cart = [];
-
-
-    saveCart();
-
-    updateCart();
-
 
     showCartMessage(
-        "Đã xóa toàn bộ sản phẩm trong giỏ hàng."
+        "Đã xóa sản phẩm khỏi giỏ hàng."
     );
-
 }
 
 
 /* =========================================================
-   23. MỞ GIỎ HÀNG
+   28. MỞ GIỎ HÀNG
    ========================================================= */
 
 function openCart() {
 
-    const sidebar =
-        getElement(
-            "#cartSidebar",
-            ".cart-sidebar"
-        );
-
+    createCartUI();
 
     const overlay =
-        getElement(
-            "#cartOverlay",
-            ".cart-overlay"
-        );
+        document.querySelector("#tocmayCartOverlay");
+
+    const sidebar =
+        document.querySelector("#tocmayCartSidebar");
 
 
-    if (sidebar) {
-
-        sidebar.classList.add(
-            "open"
-        );
-
+    if (!overlay || !sidebar) {
+        return;
     }
 
 
-    if (overlay) {
+    updateInternalCart();
 
-        overlay.classList.add(
-            "show"
-        );
+    overlay.classList.add("active");
 
-    }
-
-
-    document.body.classList.add(
-        "cart-open"
-    );
-
+    sidebar.classList.add("active");
 }
 
 
 /* =========================================================
-   24. ĐÓNG GIỎ HÀNG
+   29. ĐÓNG GIỎ HÀNG
    ========================================================= */
 
 function closeCart() {
 
-    const sidebar =
-        getElement(
-            "#cartSidebar",
-            ".cart-sidebar"
-        );
-
-
     const overlay =
-        getElement(
-            "#cartOverlay",
-            ".cart-overlay"
-        );
+        document.querySelector("#tocmayCartOverlay");
 
-
-    if (sidebar) {
-
-        sidebar.classList.remove(
-            "open"
-        );
-
-    }
+    const sidebar =
+        document.querySelector("#tocmayCartSidebar");
 
 
     if (overlay) {
-
-        overlay.classList.remove(
-            "show"
-        );
-
+        overlay.classList.remove("active");
     }
 
-
-    document.body.classList.remove(
-        "cart-open"
-    );
-
+    if (sidebar) {
+        sidebar.classList.remove("active");
+    }
 }
 
 
 /* =========================================================
-   25. THÔNG BÁO GIỎ HÀNG
+   30. THÔNG BÁO
    ========================================================= */
+
+let toastTimer = null;
 
 function showCartMessage(message) {
 
-    let notification =
-        document.getElementById(
-            "cartNotification"
-        );
+    let toast =
+        document.querySelector("#tocmayToast");
 
 
-    if (!notification) {
+    if (!toast) {
 
-        notification =
+        toast =
             document.createElement("div");
 
-        notification.id =
-            "cartNotification";
+        toast.id = "tocmayToast";
 
-        notification.className =
-            "cart-notification";
+        toast.className =
+            "tocmay-toast";
 
-        document.body.appendChild(
-            notification
-        );
-
+        document.body.appendChild(toast);
     }
 
 
-    notification.innerHTML = `
+    toast.textContent = message;
 
-        <i class="fa-solid fa-circle-check"></i>
-
-        <span>
-            ${escapeHTML(message)}
-        </span>
-
-    `;
+    toast.classList.add("active");
 
 
-    notification.classList.add(
-        "show"
-    );
+    clearTimeout(toastTimer);
 
 
-    clearTimeout(
-        window.cartNotificationTimer
-    );
-
-
-    window.cartNotificationTimer =
+    toastTimer =
         setTimeout(() => {
 
-            notification.classList.remove(
-                "show"
-            );
+            toast.classList.remove("active");
 
         }, 2500);
-
 }
 
 
 /* =========================================================
-   26. SỰ KIỆN TÌM KIẾM
+   31. XỬ LÝ ẢNH KHÔNG TẢI ĐƯỢC
+   ========================================================= */
+
+function handleImageError(image) {
+
+    if (!image) {
+        return;
+    }
+
+
+    /*
+       Không để ảnh bị vỡ biểu tượng.
+       Thay bằng nền nhẹ nếu URL ảnh không tải được.
+    */
+
+    image.style.objectFit = "contain";
+
+    image.style.padding = "35px";
+
+    image.style.background = "#edf0d2";
+
+
+    /*
+       Không gọi onerror lặp vô hạn.
+    */
+
+    image.onerror = null;
+}
+
+
+/* =========================================================
+   32. THANH TÌM KIẾM
+   Tự nhận nhiều loại ID/class phổ biến.
    ========================================================= */
 
 function setupSearch() {
 
     const searchInput =
-        getElement(
-            "#searchInput",
-            "#productSearch",
-            ".search-input"
-        );
+        document.querySelector("#searchInput") ||
+        document.querySelector("#productSearch") ||
+        document.querySelector(".product-search");
 
 
     if (!searchInput) {
-
         return;
-
     }
 
 
@@ -1883,23 +2176,22 @@ function setupSearch() {
         "input",
         function() {
 
-            filterAndSearchProducts();
+            searchProducts(this.value);
 
         }
     );
-
 }
 
 
 /* =========================================================
-   27. SỰ KIỆN LỌC
+   33. NÚT LỌC
    ========================================================= */
 
 function setupFilters() {
 
     const filterButtons =
         document.querySelectorAll(
-            ".filter-button, .category-button, [data-filter]"
+            "[data-filter]"
         );
 
 
@@ -1907,43 +2199,37 @@ function setupFilters() {
 
         button.addEventListener(
             "click",
-            function(event) {
-
-                event.preventDefault();
-
+            function() {
 
                 filterButtons.forEach(
                     item =>
-                        item.classList.remove(
-                            "active"
-                        )
+                        item.classList.remove("active")
                 );
 
 
-                this.classList.add(
-                    "active"
+                this.classList.add("active");
+
+
+                filterProducts(
+                    this.dataset.filter
                 );
-
-
-                filterAndSearchProducts();
 
             }
         );
 
     });
-
 }
 
 
 /* =========================================================
-   28. NÚT GIỎ HÀNG
+   34. NÚT MỞ GIỎ HÀNG
    ========================================================= */
 
 function setupCartButtons() {
 
     const cartButtons =
         document.querySelectorAll(
-            "[data-open-cart], .open-cart"
+            "#openCart, .open-cart, [data-open-cart]"
         );
 
 
@@ -1961,139 +2247,11 @@ function setupCartButtons() {
         );
 
     });
-
-
-    const closeButtons =
-        document.querySelectorAll(
-            "[data-close-cart], .close-cart"
-        );
-
-
-    closeButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function(event) {
-
-                event.preventDefault();
-
-                closeCart();
-
-            }
-        );
-
-    });
-
-
-    const overlay =
-        getElement(
-            "#cartOverlay",
-            ".cart-overlay"
-        );
-
-
-    if (overlay) {
-
-        overlay.addEventListener(
-            "click",
-            closeCart
-        );
-
-    }
-
 }
 
 
 /* =========================================================
-   29. NÚT XÓA GIỎ HÀNG
-   ========================================================= */
-
-function setupClearCart() {
-
-    const clearButton =
-        getElement(
-            "#clearCart",
-            ".clear-cart"
-        );
-
-
-    if (!clearButton) {
-
-        return;
-
-    }
-
-
-    clearButton.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            clearCart();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   30. NÚT THANH TOÁN
-   ========================================================= */
-
-function setupCheckout() {
-
-    const checkoutButton =
-        getElement(
-            "#checkoutButton",
-            ".checkout-button"
-        );
-
-
-    if (!checkoutButton) {
-
-        return;
-
-    }
-
-
-    checkoutButton.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-
-            if (!cart.length) {
-
-                showCartMessage(
-                    "Giỏ hàng đang trống."
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * Có thể thay phần này bằng
-             * trang thanh toán / form đặt hàng
-             * của website.
-             */
-
-            showCartMessage(
-                "Giỏ hàng đã sẵn sàng để đặt hàng."
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   31. PHÍM ESC
+   35. PHÍM ESC
    ========================================================= */
 
 function setupKeyboard() {
@@ -2102,179 +2260,396 @@ function setupKeyboard() {
         "keydown",
         function(event) {
 
-            if (
-                event.key === "Escape"
-            ) {
-
-                closeProductDetail();
-
-                closeCart();
-
+            if (event.key !== "Escape") {
+                return;
             }
 
+
+            closeProductDetail();
+
+            closeCart();
+
         }
+    );
+}
+
+
+/* =========================================================
+   36. CLICK ẢNH / CARD BẰNG ENTER
+   ========================================================= */
+
+function setupCardKeyboard() {
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key !== "Enter" &&
+                event.key !== " "
+            ) {
+                return;
+            }
+
+
+            const target =
+                event.target.closest(
+                    ".tocmay-product-image-wrap"
+                );
+
+
+            if (!target) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            const card =
+                target.closest(
+                    ".tocmay-product-card"
+                );
+
+
+            if (!card) {
+                return;
+            }
+
+
+            const productId =
+                card.dataset.productId;
+
+
+            openProductDetail(productId);
+
+        }
+    );
+}
+
+
+/* =========================================================
+   37. ĐẶT HÀNG
+   ========================================================= */
+
+function checkoutCart() {
+
+    if (!cart.length) {
+
+        showCartMessage(
+            "Giỏ hàng của bạn đang trống."
+        );
+
+        return;
+    }
+
+
+    /*
+       Nếu website có form đặt hàng riêng,
+       có thể thay phần này bằng chuyển đến
+       section/form đặt hàng.
+    */
+
+    const orderText =
+        cart
+            .map(item =>
+                `${item.name} x ${item.quantity}`
+            )
+            .join("\n");
+
+
+    const total =
+        formatPrice(getCartTotal());
+
+
+    alert(
+        "Đơn hàng của bạn:\n\n" +
+        orderText +
+        "\n\nTổng cộng: " +
+        total +
+        "\n\nVui lòng điền thông tin đặt hàng để hoàn tất."
+    );
+}
+
+
+/* =========================================================
+   38. TỰ TẠO NÚT GIỎ HÀNG NẾU CẦN
+   ========================================================= */
+
+function createFloatingCartButton() {
+
+    const existingButton =
+        document.querySelector(
+            "#tocmayFloatingCart"
+        );
+
+
+    if (existingButton) {
+        return;
+    }
+
+
+    const button =
+        document.createElement("button");
+
+
+    button.id =
+        "tocmayFloatingCart";
+
+
+    button.type = "button";
+
+
+    button.innerHTML = `
+        🛒
+        <span
+            id="cartCount"
+            style="
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                min-width:22px;
+                height:22px;
+                padding:0 5px;
+                border-radius:999px;
+                background:#fff;
+                color:#536d27;
+                font-size:12px;
+                font-weight:800;
+                vertical-align:middle;
+            "
+        >
+            0
+        </span>
+    `;
+
+
+    button.style.cssText = `
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 9990;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        min-width: 58px;
+        height: 52px;
+        padding: 0 15px;
+        border: none;
+        border-radius: 999px;
+        background: #536d27;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0,0,0,.18);
+        letter-spacing: normal;
+    `;
+
+
+    button.addEventListener(
+        "click",
+        openCart
+    );
+
+
+    document.body.appendChild(button);
+}
+
+
+/* =========================================================
+   39. ĐỒNG BỘ NÚT GIỎ HÀNG CÓ SẴN
+   ========================================================= */
+
+function ensureCartCountElement() {
+
+    let cartCount =
+        document.querySelector("#cartCount");
+
+
+    if (cartCount) {
+        return cartCount;
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   40. KHỞI TẠO WEBSITE
+   ========================================================= */
+
+function initTocMay() {
+
+    /*
+       Bước 1:
+       Nạp CSS bổ sung
+    */
+
+    injectProductStyles();
+
+
+    /*
+       Bước 2:
+       Nạp giỏ hàng
+    */
+
+    loadCart();
+
+
+    /*
+       Bước 3:
+       Hiển thị sản phẩm
+       -> ĐÂY LÀ PHẦN QUAN TRỌNG ĐỂ ẢNH HIỆN RA
+    */
+
+    renderProducts(products);
+
+
+    /*
+       Bước 4:
+       Tạo modal
+    */
+
+    createProductModal();
+
+
+    /*
+       Bước 5:
+       Tạo giỏ hàng
+    */
+
+    createCartUI();
+
+
+    /*
+       Bước 6:
+       Tạo nút giỏ hàng nổi nếu HTML
+       chưa có nút giỏ hàng.
+    */
+
+    const hasCartButton =
+        document.querySelector(
+            "#openCart, .open-cart, [data-open-cart]"
+        );
+
+
+    if (!hasCartButton) {
+        createFloatingCartButton();
+    }
+
+
+    /*
+       Bước 7:
+       Cập nhật giỏ hàng
+    */
+
+    updateCart();
+
+    updateInternalCart();
+
+
+    /*
+       Bước 8:
+       Các sự kiện
+    */
+
+    setupSearch();
+
+    setupFilters();
+
+    setupCartButtons();
+
+    setupKeyboard();
+
+    setupCardKeyboard();
+
+
+    /*
+       Bước 9:
+       Đồng bộ số lượng giỏ hàng
+    */
+
+    const countElement =
+        ensureCartCountElement();
+
+
+    if (countElement) {
+        countElement.textContent =
+            getCartQuantity();
+    }
+
+
+    console.log(
+        "Tóc Mây Cỏ Mềm: script.js đã được khởi tạo."
     );
 
 }
 
 
 /* =========================================================
-   32. CLICK BÊN NGOÀI MODAL
+   41. CHẠY KHI HTML ĐÃ TẢI XONG
    ========================================================= */
 
-document.addEventListener(
-    "click",
-    function(event) {
+if (document.readyState === "loading") {
 
-        const modal =
-            document.getElementById(
-                "productDetailModal"
-            );
+    document.addEventListener(
+        "DOMContentLoaded",
+        initTocMay
+    );
 
+} else {
 
-        if (
-            !modal ||
-            !modal.classList.contains("show")
-        ) {
+    initTocMay();
 
-            return;
-
-        }
-
-
-        if (
-            event.target.classList.contains(
-                "product-detail-overlay"
-            )
-        ) {
-
-            closeProductDetail();
-
-        }
-
-    }
-);
+}
 
 
 /* =========================================================
-   33. KHỞI TẠO WEBSITE
+   42. EXPORT RA WINDOW
+   Cho phép HTML gọi trực tiếp các hàm:
+   
+   onclick="openProductDetail(1)"
+   onclick="addToCart(1)"
+   onclick="openCart()"
+   ...
    ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+window.products = products;
 
-        /* Tạo modal */
+window.renderProducts = renderProducts;
 
-        createProductModal();
+window.searchProducts = searchProducts;
 
+window.filterProducts = filterProducts;
 
-        /* Đọc giỏ hàng */
+window.openProductDetail = openProductDetail;
 
-        loadCart();
+window.closeProductDetail = closeProductDetail;
 
+window.addToCart = addToCart;
 
-        /* Hiển thị sản phẩm */
+window.addToCartFromDetail = addToCartFromDetail;
 
-        renderProducts(
-            products
-        );
+window.updateCart = updateCart;
 
+window.increaseQuantity = increaseQuantity;
 
-        /* Cập nhật giỏ */
+window.decreaseQuantity = decreaseQuantity;
 
-        updateCart();
+window.removeFromCart = removeFromCart;
 
+window.openCart = openCart;
 
-        /* Tìm kiếm */
+window.closeCart = closeCart;
 
-        setupSearch();
+window.checkoutCart = checkoutCart;
 
+window.formatPrice = formatPrice;
 
-        /* Bộ lọc */
-
-        setupFilters();
-
-
-        /* Nút giỏ */
-
-        setupCartButtons();
-
-
-        /* Xóa giỏ */
-
-        setupClearCart();
-
-
-        /* Thanh toán */
-
-        setupCheckout();
-
-
-        /* Bàn phím */
-
-        setupKeyboard();
-
-    }
-);
+window.handleImageError = handleImageError;
 
 
 /* =========================================================
-   34. EXPORT RA WINDOW
-   Cho HTML có thể gọi trực tiếp.
+   KẾT THÚC script.js
    ========================================================= */
-
-window.products =
-    products;
-
-window.renderProducts =
-    renderProducts;
-
-window.searchProducts =
-    searchProducts;
-
-window.filterProducts =
-    filterProducts;
-
-window.openProductDetail =
-    openProductDetail;
-
-window.closeProductDetail =
-    closeProductDetail;
-
-window.addToCart =
-    addToCart;
-
-window.addToCartFromDetail =
-    addToCartFromDetail;
-
-window.updateCart =
-    updateCart;
-
-window.increaseQuantity =
-    increaseQuantity;
-
-window.decreaseQuantity =
-    decreaseQuantity;
-
-window.removeFromCart =
-    removeFromCart;
-
-window.clearCart =
-    clearCart;
-
-window.openCart =
-    openCart;
-
-window.closeCart =
-    closeCart;
-
-window.showCartMessage =
-    showCartMessage;
-
-window.formatPrice =
-    formatPrice;
-
-window.handleImageError =
-    handleImageError;
-```
