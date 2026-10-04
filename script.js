@@ -165,7 +165,7 @@ const products = [
         categoryName: "Refill",
 
         image:
-            "https://cdn.hstatic.net/products/1000006063/new_project_4f782c61380f46bc8013b609d3849d29_1024x1024.jpg",
+            "https://myphamthuanchay.com/data/upload_file/Image/3384/dau-goi-tui-buoi-cocoon.jpg",
 
         description:
             "Túi Refill Dầu gội Bưởi Cocoon giúp bổ sung dầu gội tiện lợi, phù hợp cho nhu cầu sử dụng thường xuyên.",
@@ -228,7 +228,7 @@ const products = [
         categoryName: "Dầu xả",
 
         image:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVTToPG_yudvoDtXvIjkh-42g8gBg6_rNUnREextcb85SNZAT1Ao3bdoyw&s=10",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsdNT8emamiygs3BesL_7MSn-awJTb78G4LN7N1SHfnA&s=10",
 
         description:
             "Dầu xả Bưởi Cocoon giúp dưỡng tóc sau bước gội, cung cấp độ ẩm và hỗ trợ mái tóc mềm mượt, bóng khỏe.",
@@ -291,7 +291,7 @@ const products = [
         categoryName: "Combo",
 
         image:
-            "https://oharabeauty.com/wp-content/uploads/2024/02/dau-xa-cocoon-buoi-cung-cap-duong-chat-do-am-310ml-2.png",
+            "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lf9e29ue5i161e",
 
         description:
             "Combo Dầu gội và Dầu xả Bưởi Cocoon 310ml x 2 kết hợp bước làm sạch và dưỡng tóc trong một chu trình chăm sóc tiện lợi.",
