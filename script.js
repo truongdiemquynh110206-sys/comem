@@ -1,51 +1,53 @@
 /* =========================================================
    NÂNG NIU MÁI TÓC VIỆT
-   script.js
+   SCRIPT.JS
+   =========================================================
+   CHỨC NĂNG
    ---------------------------------------------------------
-   Chức năng:
-   - Dữ liệu 5 sản phẩm
-   - Hiển thị sản phẩm
-   - Tìm kiếm sản phẩm
-   - Tìm kiếm có dấu / không dấu
-   - Lọc sản phẩm
-   - Xem chi tiết khi bấm tên sản phẩm
-   - Thêm vào giỏ hàng
-   - Tăng / giảm số lượng
-   - Xóa sản phẩm
-   - Xóa toàn bộ giỏ hàng
-   - Tính tổng tiền
-   - Lưu giỏ hàng bằng localStorage
+   1. Hiển thị đủ 5 sản phẩm
+   2. Tìm kiếm sản phẩm
+   3. Tìm kiếm không dấu
+   4. Lọc theo loại sản phẩm
+   5. Xem chi tiết sản phẩm
+   6. Thêm vào giỏ hàng
+   7. Tăng / giảm số lượng
+   8. Xóa sản phẩm khỏi giỏ
+   9. Xóa toàn bộ giỏ
+   10. Tính tổng tiền
+   11. Lưu giỏ hàng bằng localStorage
    ========================================================= */
 
 
 /* =========================================================
-   1. DỮ LIỆU SẢN PHẨM
+   1. DANH SÁCH 5 SẢN PHẨM
    ========================================================= */
 
 const products = [
 
-    /* =====================================================
-       1. DẦU GỘI BƯỞI 500ML
-       ===================================================== */
+    /* -----------------------------------------------------
+       SẢN PHẨM 1
+       ----------------------------------------------------- */
     {
         id: 1,
 
         name: "Dầu gội Bưởi Cocoon 500ml",
 
-        price: 388000,
+        shortName: "Dầu gội Bưởi 500ml",
 
         category: "dau-goi",
 
         categoryName: "Dầu gội",
+
+        price: 388000,
 
         image:
             "https://image.cocoonvietnam.com/uploads/IMG_5252_8f3fe2deab.jpg",
 
         description:
-            "Dầu gội Bưởi Cocoon giúp làm sạch tóc và da đầu, kết hợp tinh dầu bưởi cùng các thành phần dưỡng tóc giúp mái tóc mềm mượt và bóng khỏe.",
+            "Dầu gội Bưởi Cocoon với tinh dầu bưởi và các thành phần dưỡng tóc giúp làm sạch tóc, chăm sóc da đầu và hỗ trợ mái tóc bóng khỏe.",
 
         usage:
-            "Thoa sản phẩm lên tóc ướt và tạo bọt, mát-xa nhẹ nhàng từ gốc đến ngọn, sau đó xả sạch. Sử dụng hằng ngày. Tránh tiếp xúc với mắt.",
+            "Thoa sản phẩm lên tóc ướt và tạo bọt. Mát-xa nhẹ nhàng từ gốc đến ngọn, sau đó gội sạch. Sử dụng hằng ngày để có kết quả tốt nhất. Tránh tiếp xúc với mắt.",
 
         amount:
             "1–2 lần nhấn",
@@ -57,7 +59,7 @@ const products = [
             "Tinh dầu bưởi thơm mát",
 
         note:
-            "Tránh vùng mắt, chỉ dùng ngoài da.",
+            "Tránh dùng vùng mắt, chỉ dùng ngoài da.",
 
         origin:
             "Việt Nam",
@@ -71,75 +73,12 @@ const products = [
             {
                 name: "Xylishine™",
                 description:
-                    "Có nguồn gốc từ tảo nâu và đường tự nhiên, giúp dưỡng ẩm, phục hồi và tăng độ bóng cho tóc."
+                    "Giúp dưỡng ẩm, hỗ trợ phục hồi và tăng cường độ bóng cho tóc."
             },
             {
-                name: "Vitamin B5 (D-panthenol)",
+                name: "Vitamin B5",
                 description:
-                    "Giúp cung cấp độ ẩm lâu dài, hỗ trợ hạn chế hư tổn và cải thiện vẻ bóng khỏe của tóc."
-            },
-            {
-                name: "Axít amin",
-                description:
-                    "Giúp dưỡng ẩm, củng cố cấu trúc tóc, bảo vệ màu và hỗ trợ cải thiện hư tổn bề mặt."
-            }
-        ]
-    },
-
-
-    /* =====================================================
-       2. DẦU GỘI BƯỞI 310ML
-       ===================================================== */
-    {
-        id: 2,
-
-        name: "Dầu gội Bưởi Cocoon 310ml",
-
-        price: 200000,
-
-        category: "dau-goi",
-
-        categoryName: "Dầu gội",
-
-        image:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaO9qvYFAEuGH2AkFhsus8McXksD5--YRyhFYcsqTdwg&s=10",
-
-        description:
-            "Dầu gội Bưởi Cocoon 310ml là lựa chọn tiện lợi cho chu trình chăm sóc tóc hằng ngày, giúp làm sạch tóc và da đầu đồng thời hỗ trợ dưỡng tóc.",
-
-        usage:
-            "Thoa sản phẩm lên tóc ướt và tạo bọt, mát-xa nhẹ nhàng từ gốc đến ngọn, sau đó xả sạch. Sử dụng hằng ngày. Tránh tiếp xúc với mắt.",
-
-        amount:
-            "1–2 lần nhấn",
-
-        texture:
-            "Gel trong mờ",
-
-        scent:
-            "Tinh dầu bưởi thơm mát",
-
-        note:
-            "Tránh vùng mắt, chỉ dùng ngoài da.",
-
-        origin:
-            "Việt Nam",
-
-        ingredients: [
-            {
-                name: "Tinh dầu bưởi",
-                description:
-                    "Giàu limonene, hỗ trợ chăm sóc da đầu và tóc, đồng thời có đặc tính kháng khuẩn và chống oxy hóa."
-            },
-            {
-                name: "Xylishine™",
-                description:
-                    "Giúp dưỡng ẩm, phục hồi và tăng cường độ bóng cho tóc."
-            },
-            {
-                name: "Vitamin B5 (D-panthenol)",
-                description:
-                    "Cung cấp độ ẩm lâu dài, hỗ trợ hạn chế hư tổn và cải thiện độ bóng khỏe."
+                    "Cung cấp độ ẩm lâu dài, hỗ trợ hạn chế hư tổn và cải thiện độ bóng khỏe của tóc."
             },
             {
                 name: "Axít amin",
@@ -150,31 +89,33 @@ const products = [
     },
 
 
-    /* =====================================================
-       3. TÚI REFILL DẦU GỘI BƯỞI
-       ===================================================== */
+    /* -----------------------------------------------------
+       SẢN PHẨM 2
+       ----------------------------------------------------- */
     {
-        id: 3,
+        id: 2,
 
-        name: "Túi Refill Dầu gội Bưởi Cocoon",
+        name: "Dầu gội Bưởi Cocoon 310ml",
 
-        price: 310000,
+        shortName: "Dầu gội Bưởi 310ml",
 
-        category: "refill",
+        category: "dau-goi",
 
-        categoryName: "Refill",
+        categoryName: "Dầu gội",
+
+        price: 200000,
 
         image:
-            "https://myphamthuanchay.com/data/upload_file/Image/3384/dau-goi-tui-buoi-cocoon.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaO9qvYFAEuGH2AkFhsus8McXksD5--YRyhFYcsqTdwg&s=10",
 
         description:
-            "Túi Refill Dầu gội Bưởi Cocoon giúp bổ sung dầu gội tiện lợi, phù hợp cho nhu cầu sử dụng thường xuyên.",
+            "Dầu gội Bưởi Cocoon 310ml giúp làm sạch tóc và da đầu, kết hợp các thành phần chăm sóc tóc giúp tóc mềm mại và bóng khỏe.",
 
         usage:
-            "Bổ sung sản phẩm vào chai đựng phù hợp. Khi sử dụng, thoa dầu gội lên tóc ướt, tạo bọt, mát-xa nhẹ nhàng từ gốc đến ngọn rồi xả sạch.",
+            "Thoa sản phẩm lên tóc ướt và tạo bọt. Mát-xa nhẹ nhàng từ gốc đến ngọn, sau đó gội sạch. Sử dụng hằng ngày. Tránh tiếp xúc với mắt.",
 
         amount:
-            "Từ 1–2 lần nhấn",
+            "1–2 lần nhấn",
 
         texture:
             "Gel trong mờ",
@@ -183,7 +124,72 @@ const products = [
             "Tinh dầu bưởi thơm mát",
 
         note:
-            "Tránh vùng mắt, chỉ dùng ngoài da.",
+            "Tránh dùng vùng mắt, chỉ dùng ngoài da.",
+
+        origin:
+            "Việt Nam",
+
+        ingredients: [
+            {
+                name: "Tinh dầu bưởi",
+                description:
+                    "Giúp chăm sóc da đầu và tóc, đồng thời hỗ trợ bảo vệ tóc nhờ đặc tính chống oxy hóa."
+            },
+            {
+                name: "Xylishine™",
+                description:
+                    "Giúp dưỡng ẩm, hỗ trợ phục hồi và tăng độ bóng cho tóc."
+            },
+            {
+                name: "Vitamin B5",
+                description:
+                    "Hỗ trợ cung cấp độ ẩm và cải thiện vẻ bóng khỏe của mái tóc."
+            },
+            {
+                name: "Axít amin",
+                description:
+                    "Giúp dưỡng ẩm và hỗ trợ củng cố cấu trúc tóc."
+            }
+        ]
+    },
+
+
+    /* -----------------------------------------------------
+       SẢN PHẨM 3
+       ----------------------------------------------------- */
+    {
+        id: 3,
+
+        name: "Túi Refill Dầu gội Bưởi Cocoon",
+
+        shortName: "Túi Refill Dầu gội Bưởi",
+
+        category: "refill",
+
+        categoryName: "Refill",
+
+        price: 310000,
+
+        image:
+            "https://cdn.hstatic.net/products/1000006063/new_project_4f782c61380f46bc8013b609d3849d29_1024x1024.jpg",
+
+        description:
+            "Túi Refill Dầu gội Bưởi Cocoon giúp bổ sung dầu gội tiện lợi cho nhu cầu sử dụng thường xuyên.",
+
+        usage:
+            "Bổ sung sản phẩm vào chai đựng phù hợp. Khi sử dụng, thoa dầu gội lên tóc ướt, tạo bọt, mát-xa nhẹ nhàng từ gốc đến ngọn rồi xả sạch.",
+
+        amount:
+            "1–2 lần nhấn",
+
+        texture:
+            "Gel trong mờ",
+
+        scent:
+            "Tinh dầu bưởi thơm mát",
+
+        note:
+            "Tránh dùng vùng mắt, chỉ dùng ngoài da.",
 
         origin:
             "Việt Nam",
@@ -197,12 +203,12 @@ const products = [
             {
                 name: "Xylishine™",
                 description:
-                    "Giúp dưỡng ẩm, phục hồi và tăng độ bóng cho tóc."
+                    "Giúp dưỡng ẩm, hỗ trợ phục hồi và tăng độ bóng cho tóc."
             },
             {
-                name: "Vitamin B5 (D-panthenol)",
+                name: "Vitamin B5",
                 description:
-                    "Giúp duy trì độ ẩm và hỗ trợ mái tóc mềm mại, bóng khỏe."
+                    "Giúp cung cấp độ ẩm và hỗ trợ mái tóc mềm mại, bóng khỏe."
             },
             {
                 name: "Axít amin",
@@ -213,28 +219,30 @@ const products = [
     },
 
 
-    /* =====================================================
-       4. DẦU XẢ BƯỞI 310ML
-       ===================================================== */
+    /* -----------------------------------------------------
+       SẢN PHẨM 4
+       ----------------------------------------------------- */
     {
         id: 4,
 
         name: "Dầu xả Bưởi Cocoon 310ml",
 
-        price: 388000,
+        shortName: "Dầu xả Bưởi 310ml",
 
         category: "dau-xa",
 
         categoryName: "Dầu xả",
 
+        price: 388000,
+
         image:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsdNT8emamiygs3BesL_7MSn-awJTb78G4LN7N1SHfnA&s=10",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVTToPG_yudvoDtXvIjkh-42g8gBg6_rNUnREextcb85SNZAT1Ao3bdoyw&s=10",
 
         description:
             "Dầu xả Bưởi Cocoon giúp dưỡng tóc sau bước gội, cung cấp độ ẩm và hỗ trợ mái tóc mềm mượt, bóng khỏe.",
 
         usage:
-            "Sau khi gội tóc với Dầu gội Bưởi, thoa sản phẩm lên tóc ướt, mát-xa nhẹ nhàng lên thân tóc, sau đó xả sạch lại với nước. Sử dụng hằng ngày. Tránh tiếp xúc với mắt.",
+            "Sau khi gội tóc với Dầu gội Bưởi, thoa sản phẩm lên tóc ướt và mát-xa nhẹ nhàng lên thân tóc. Sau đó xả sạch lại với nước. Sử dụng hằng ngày. Tránh tiếp xúc với mắt.",
 
         amount:
             "1–2 lần nhấn",
@@ -246,7 +254,7 @@ const products = [
             "Tinh dầu bưởi thơm mát",
 
         note:
-            "Tránh vùng mắt, chỉ dùng ngoài da.",
+            "Tránh dùng vùng mắt, chỉ dùng ngoài da.",
 
         origin:
             "Việt Nam",
@@ -255,7 +263,7 @@ const products = [
             {
                 name: "Tinh dầu bưởi",
                 description:
-                    "Giúp chăm sóc da đầu và tóc, đồng thời mang lại cảm giác tươi mát."
+                    "Giúp chăm sóc tóc và mang lại cảm giác thơm mát, dễ chịu."
             },
             {
                 name: "Xylishine™",
@@ -263,9 +271,9 @@ const products = [
                     "Giúp dưỡng ẩm, hỗ trợ phục hồi và tăng độ bóng cho tóc."
             },
             {
-                name: "Vitamin B5 (D-panthenol)",
+                name: "Vitamin B5",
                 description:
-                    "Cung cấp độ ẩm lâu dài, hỗ trợ hạn chế hư tổn và cải thiện vẻ bóng khỏe."
+                    "Giúp cung cấp độ ẩm và hỗ trợ cải thiện vẻ bóng khỏe của tóc."
             },
             {
                 name: "Axít amin",
@@ -276,25 +284,27 @@ const products = [
     },
 
 
-    /* =====================================================
-       5. COMBO DẦU GỘI + DẦU XẢ
-       ===================================================== */
+    /* -----------------------------------------------------
+       SẢN PHẨM 5
+       ----------------------------------------------------- */
     {
         id: 5,
 
         name: "Combo Dầu gội & Dầu xả Bưởi Cocoon 310ml x 2",
 
-        price: 590000,
+        shortName: "Combo Dầu gội & Dầu xả Bưởi",
 
         category: "combo",
 
         categoryName: "Combo",
 
+        price: 590000,
+
         image:
-            "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lf9e29ue5i161e",
+            "https://oharabeauty.com/wp-content/uploads/2024/02/dau-xa-cocoon-buoi-cung-cap-duong-chat-do-am-310ml-2.png",
 
         description:
-            "Combo Dầu gội và Dầu xả Bưởi Cocoon 310ml x 2 kết hợp bước làm sạch và dưỡng tóc trong một chu trình chăm sóc tiện lợi.",
+            "Combo kết hợp Dầu gội và Dầu xả Bưởi Cocoon 310ml, giúp hoàn thiện chu trình làm sạch và dưỡng tóc.",
 
         usage:
             "Bước 1: Thoa dầu gội lên tóc ướt, tạo bọt và mát-xa nhẹ nhàng từ gốc đến ngọn, sau đó xả sạch. Bước 2: Sau khi gội, thoa dầu xả lên thân tóc, mát-xa nhẹ nhàng rồi xả sạch với nước. Sử dụng hằng ngày.",
@@ -309,7 +319,7 @@ const products = [
             "Tinh dầu bưởi thơm mát",
 
         note:
-            "Tránh vùng mắt, chỉ dùng ngoài da.",
+            "Tránh dùng vùng mắt, chỉ dùng ngoài da.",
 
         origin:
             "Việt Nam",
@@ -318,17 +328,17 @@ const products = [
             {
                 name: "Tinh dầu bưởi",
                 description:
-                    "Giúp chăm sóc da đầu và tóc, đồng thời có đặc tính kháng khuẩn và chống oxy hóa."
+                    "Hỗ trợ chăm sóc da đầu và tóc, đồng thời có đặc tính chống oxy hóa."
             },
             {
                 name: "Xylishine™",
                 description:
-                    "Giúp dưỡng ẩm, hỗ trợ phục hồi và tăng cường độ bóng của tóc."
+                    "Giúp dưỡng ẩm, hỗ trợ phục hồi và tăng cường độ bóng cho tóc."
             },
             {
-                name: "Vitamin B5 (D-panthenol)",
+                name: "Vitamin B5",
                 description:
-                    "Giúp cung cấp độ ẩm lâu dài và hỗ trợ cải thiện vẻ bóng khỏe của mái tóc."
+                    "Cung cấp độ ẩm lâu dài và hỗ trợ cải thiện vẻ bóng khỏe của mái tóc."
             },
             {
                 name: "Axít amin",
@@ -342,24 +352,17 @@ const products = [
 
 
 /* =========================================================
-   2. BIẾN GIỎ HÀNG
+   2. GIỎ HÀNG
    ========================================================= */
 
 let cart = [];
 
 
 /* =========================================================
-   3. CHUẨN HÓA CHUỖI
-   ---------------------------------------------------------
-   Cho phép tìm:
-   "dầu xả"
-   "dau xa"
-   "DẦU XẢ"
-   "xả"
-   "xa"
+   3. HÀM BỎ DẤU TIẾNG VIỆT
    ========================================================= */
 
-function normalizeText(text) {
+function removeVietnameseTones(text) {
 
     return String(text || "")
         .toLowerCase()
@@ -372,7 +375,7 @@ function normalizeText(text) {
 
 
 /* =========================================================
-   4. ĐỊNH DẠNG GIÁ
+   4. ĐỊNH DẠNG TIỀN
    ========================================================= */
 
 function formatPrice(price) {
@@ -385,7 +388,7 @@ function formatPrice(price) {
 
 
 /* =========================================================
-   5. TÌM SẢN PHẨM
+   5. TÌM SẢN PHẨM THEO ID
    ========================================================= */
 
 function getProductById(id) {
@@ -397,38 +400,46 @@ function getProductById(id) {
 
 
 /* =========================================================
-   6. HIỂN THỊ SẢN PHẨM
+   6. HIỂN THỊ ĐỦ 5 SẢN PHẨM
    ========================================================= */
 
-function renderProducts(list = products) {
+function renderProducts(productList = products) {
 
     const productGrid =
         document.getElementById("productGrid");
 
     if (!productGrid) {
-        console.warn(
-            "Không tìm thấy #productGrid"
+        console.error(
+            "Không tìm thấy phần tử #productGrid trong HTML."
         );
         return;
     }
 
 
-    if (list.length === 0) {
+    /*
+     * Không có kết quả tìm kiếm
+     */
+
+    if (productList.length === 0) {
 
         productGrid.innerHTML = `
             <div class="no-products">
-                <h3>Không tìm thấy sản phẩm</h3>
+
+                <h3>
+                    Không tìm thấy sản phẩm
+                </h3>
 
                 <p>
-                    Hãy thử nhập từ khóa khác.
+                    Vui lòng thử từ khóa khác.
                 </p>
 
                 <button
                     type="button"
-                    onclick="resetProductFilter()"
+                    onclick="showAllProducts()"
                 >
                     Xem tất cả sản phẩm
                 </button>
+
             </div>
         `;
 
@@ -436,10 +447,14 @@ function renderProducts(list = products) {
     }
 
 
+    /*
+     * HIỂN THỊ TOÀN BỘ SẢN PHẨM
+     */
+
     productGrid.innerHTML =
-        list.map(
-            product => createProductCard(product)
-        ).join("");
+        productList
+            .map(product => createProductCard(product))
+            .join("");
 }
 
 
@@ -452,17 +467,16 @@ function createProductCard(product) {
     return `
         <article
             class="product-card"
-            data-product-id="${product.id}"
+            data-id="${product.id}"
         >
 
-            <div class="product-image-wrap">
+            <div class="product-image-box">
 
                 <img
                     src="${product.image}"
                     alt="${product.name}"
                     class="product-image"
                     loading="lazy"
-                    onerror="this.style.display='none';"
                 >
 
                 <span class="product-category">
@@ -474,14 +488,11 @@ function createProductCard(product) {
 
             <div class="product-info">
 
-                <!--
-                    BẤM VÀO TÊN SẢN PHẨM
-                    SẼ MỞ THÔNG TIN CHI TIẾT
-                -->
+                <!-- TÊN SẢN PHẨM CÓ THỂ BẤM -->
 
                 <button
                     type="button"
-                    class="product-name-button"
+                    class="product-name"
                     onclick="openProductDetail(${product.id})"
                 >
                     ${product.name}
@@ -493,16 +504,16 @@ function createProductCard(product) {
                 </p>
 
 
-                <div class="product-bottom">
+                <div class="product-card-bottom">
 
-                    <strong class="product-price">
+                    <span class="product-price">
                         ${formatPrice(product.price)}
-                    </strong>
+                    </span>
 
 
                     <button
                         type="button"
-                        class="add-cart-btn"
+                        class="add-to-cart"
                         onclick="addToCart(${product.id})"
                     >
                         Thêm vào giỏ
@@ -518,20 +529,21 @@ function createProductCard(product) {
 
 
 /* =========================================================
-   8. TÌM KIẾM SẢN PHẨM
+   8. TÌM KIẾM
    ========================================================= */
 
-function filterProducts() {
+function searchProducts() {
 
     const searchInput =
         document.getElementById("productSearch");
+
 
     const categoryFilter =
         document.getElementById("categoryFilter");
 
 
     const keyword =
-        normalizeText(
+        removeVietnameseTones(
             searchInput
                 ? searchInput.value
                 : ""
@@ -544,62 +556,55 @@ function filterProducts() {
             : "all";
 
 
-    const filtered =
+    const filteredProducts =
         products.filter(product => {
 
             /*
-             * Tạo nội dung tìm kiếm từ:
-             * - Tên sản phẩm
-             * - Danh mục
-             * - Mô tả
-             * - Thành phần
+             * Ghép toàn bộ nội dung của sản phẩm
+             * để tìm kiếm.
              */
 
-            const ingredients =
-                product.ingredients
-                    .map(item => item.name)
-                    .join(" ");
-
-
-            const searchableText =
-                normalizeText(`
+            const searchText =
+                removeVietnameseTones(`
                     ${product.name}
+                    ${product.shortName}
                     ${product.categoryName}
-                    ${product.category}
                     ${product.description}
-                    ${ingredients}
+                    ${product.scent}
+                    ${product.texture}
                 `);
 
 
-            const matchesSearch =
+            const matchKeyword =
                 keyword === "" ||
-                searchableText.includes(keyword);
+                searchText.includes(keyword);
 
 
-            const matchesCategory =
+            const matchCategory =
                 selectedCategory === "all" ||
                 product.category === selectedCategory;
 
 
             return (
-                matchesSearch &&
-                matchesCategory
+                matchKeyword &&
+                matchCategory
             );
         });
 
 
-    renderProducts(filtered);
+    renderProducts(filteredProducts);
 }
 
 
 /* =========================================================
-   9. RESET BỘ LỌC
+   9. HIỂN THỊ TẤT CẢ 5 SẢN PHẨM
    ========================================================= */
 
-function resetProductFilter() {
+function showAllProducts() {
 
     const searchInput =
         document.getElementById("productSearch");
+
 
     const categoryFilter =
         document.getElementById("categoryFilter");
@@ -614,6 +619,11 @@ function resetProductFilter() {
         categoryFilter.value = "all";
     }
 
+
+    /*
+     * QUAN TRỌNG:
+     * Luôn truyền products để hiển thị đủ 5 sản phẩm.
+     */
 
     renderProducts(products);
 }
@@ -630,6 +640,10 @@ function openProductDetail(productId) {
 
 
     if (!product) {
+        console.error(
+            "Không tìm thấy sản phẩm:",
+            productId
+        );
         return;
     }
 
@@ -637,11 +651,6 @@ function openProductDetail(productId) {
     let modal =
         document.getElementById("productModal");
 
-
-    /*
-     * Nếu HTML chưa có modal,
-     * JavaScript tự tạo.
-     */
 
     if (!modal) {
 
@@ -680,12 +689,13 @@ function openProductDetail(productId) {
 
 
 /* =========================================================
-   11. TẠO NỘI DUNG CHI TIẾT
+   11. NỘI DUNG CHI TIẾT
    ========================================================= */
 
 function createProductDetail(product) {
 
     return `
+
         <div class="product-detail">
 
             <div class="product-detail-image">
@@ -693,7 +703,6 @@ function createProductDetail(product) {
                 <img
                     src="${product.image}"
                     alt="${product.name}"
-                    onerror="this.style.display='none';"
                 >
 
             </div>
@@ -721,11 +730,9 @@ function createProductDetail(product) {
                 </p>
 
 
-                <!-- ================================
-                     CÁCH SỬ DỤNG
-                     ================================ -->
+                <!-- CÁCH SỬ DỤNG -->
 
-                <section class="product-detail-section">
+                <div class="detail-section">
 
                     <h3>
                         Cách sử dụng
@@ -735,16 +742,14 @@ function createProductDetail(product) {
                         ${product.usage}
                     </p>
 
-                </section>
+                </div>
 
 
-                <!-- ================================
-                     THÔNG TIN NHANH
-                     ================================ -->
+                <!-- THÔNG TIN -->
 
-                <div class="product-detail-grid">
+                <div class="detail-information">
 
-                    <div class="detail-box">
+                    <div class="detail-information-item">
 
                         <strong>
                             Lượng dùng
@@ -757,7 +762,7 @@ function createProductDetail(product) {
                     </div>
 
 
-                    <div class="detail-box">
+                    <div class="detail-information-item">
 
                         <strong>
                             Kết cấu
@@ -770,7 +775,7 @@ function createProductDetail(product) {
                     </div>
 
 
-                    <div class="detail-box">
+                    <div class="detail-information-item">
 
                         <strong>
                             Mùi hương
@@ -783,7 +788,7 @@ function createProductDetail(product) {
                     </div>
 
 
-                    <div class="detail-box">
+                    <div class="detail-information-item">
 
                         <strong>
                             Xuất xứ
@@ -798,23 +803,22 @@ function createProductDetail(product) {
                 </div>
 
 
-                <!-- ================================
-                     THÀNH PHẦN CHÍNH
-                     ================================ -->
+                <!-- THÀNH PHẦN -->
 
-                <section class="product-detail-section">
+                <div class="detail-section">
 
                     <h3>
                         Thành phần chính
                     </h3>
 
 
-                    <div class="ingredients-list">
+                    <div class="ingredients">
 
                         ${product.ingredients
                             .map(
                                 ingredient => `
-                                    <div class="ingredient-item">
+
+                                    <div class="ingredient">
 
                                         <h4>
                                             ${ingredient.name}
@@ -825,6 +829,7 @@ function createProductDetail(product) {
                                         </p>
 
                                     </div>
+
                                 `
                             )
                             .join("")
@@ -832,16 +837,12 @@ function createProductDetail(product) {
 
                     </div>
 
-                </section>
+                </div>
 
 
-                <!-- ================================
-                     LƯU Ý
-                     ================================ -->
+                <!-- LƯU Ý -->
 
-                <section
-                    class="product-detail-section product-note"
-                >
+                <div class="detail-section detail-note">
 
                     <h3>
                         Lưu ý
@@ -851,16 +852,14 @@ function createProductDetail(product) {
                         ${product.note}
                     </p>
 
-                </section>
+                </div>
 
 
-                <!-- ================================
-                     THÊM VÀO GIỎ
-                     ================================ -->
+                <!-- NÚT THÊM GIỎ -->
 
                 <button
                     type="button"
-                    class="detail-add-cart-btn"
+                    class="detail-cart-button"
                     onclick="addToCart(${product.id})"
                 >
                     Thêm vào giỏ hàng
@@ -880,9 +879,7 @@ function createProductDetail(product) {
 function createProductModal() {
 
     if (
-        document.getElementById(
-            "productModal"
-        )
+        document.getElementById("productModal")
     ) {
         return;
     }
@@ -915,7 +912,7 @@ function createProductModal() {
 
 
         <div
-            class="product-modal-content"
+            class="product-modal-container"
             role="dialog"
             aria-modal="true"
         >
@@ -982,29 +979,32 @@ function loadCart() {
 
     try {
 
-        const saved =
+        const savedCart =
             localStorage.getItem(
                 "nangNiuMaiTocVietCart"
             );
 
 
-        if (!saved) {
+        if (!savedCart) {
             return [];
         }
 
 
         const parsed =
-            JSON.parse(saved);
+            JSON.parse(savedCart);
 
 
-        return Array.isArray(parsed)
-            ? parsed
-            : [];
+        if (!Array.isArray(parsed)) {
+            return [];
+        }
+
+
+        return parsed;
 
     } catch (error) {
 
         console.error(
-            "Không thể đọc giỏ hàng:",
+            "Lỗi đọc giỏ hàng:",
             error
         );
 
@@ -1014,7 +1014,7 @@ function loadCart() {
 
 
 /* =========================================================
-   15. LƯU GIỎ HÀNG
+   15. SAVE GIỎ HÀNG
    ========================================================= */
 
 function saveCart() {
@@ -1027,7 +1027,7 @@ function saveCart() {
 
 
 /* =========================================================
-   16. THÊM SẢN PHẨM VÀO GIỎ
+   16. THÊM VÀO GIỎ
    ========================================================= */
 
 function addToCart(productId) {
@@ -1041,7 +1041,7 @@ function addToCart(productId) {
     }
 
 
-    const existing =
+    const existingItem =
         cart.find(
             item =>
                 Number(item.id) ===
@@ -1049,9 +1049,9 @@ function addToCart(productId) {
         );
 
 
-    if (existing) {
+    if (existingItem) {
 
-        existing.quantity += 1;
+        existingItem.quantity += 1;
 
     } else {
 
@@ -1067,6 +1067,7 @@ function addToCart(productId) {
     renderCart();
 
     updateCartCount();
+
 
     showNotification(
         `Đã thêm "${product.name}" vào giỏ hàng.`
@@ -1130,8 +1131,8 @@ function decreaseCartItem(productId) {
 
         cart =
             cart.filter(
-                item =>
-                    Number(item.id) !==
+                cartItem =>
+                    Number(cartItem.id) !==
                     Number(productId)
             );
     }
@@ -1173,28 +1174,18 @@ function removeFromCart(productId) {
 
 function clearCart() {
 
-    if (cart.length === 0) {
-        return;
-    }
-
-
     cart = [];
-
 
     saveCart();
 
     renderCart();
 
     updateCartCount();
-
-    showNotification(
-        "Đã xóa toàn bộ giỏ hàng."
-    );
 }
 
 
 /* =========================================================
-   21. TÍNH SỐ LƯỢNG SẢN PHẨM
+   21. TÍNH SỐ LƯỢNG GIỎ
    ========================================================= */
 
 function getCartQuantity() {
@@ -1238,7 +1229,7 @@ function getCartTotal() {
 
 
 /* =========================================================
-   23. CẬP NHẬT SỐ LƯỢNG TRÊN ICON GIỎ
+   23. CẬP NHẬT SỐ LƯỢNG TRÊN GIỎ
    ========================================================= */
 
 function updateCartCount() {
@@ -1285,11 +1276,8 @@ function renderCart() {
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
-            <div class="empty-cart">
 
-                <div class="empty-cart-icon">
-                    🛒
-                </div>
+            <div class="empty-cart">
 
                 <h3>
                     Giỏ hàng đang trống
@@ -1330,7 +1318,7 @@ function renderCart() {
 
 
 /* =========================================================
-   25. TẠO ITEM GIỎ HÀNG
+   25. TẠO ITEM GIỎ
    ========================================================= */
 
 function createCartItem(item) {
@@ -1348,21 +1336,22 @@ function createCartItem(item) {
         Number(item.quantity || 1);
 
 
-    const subtotal =
-        product.price * quantity;
+    const total =
+        product.price *
+        quantity;
 
 
     return `
+
         <div
             class="cart-item"
-            data-product-id="${product.id}"
+            data-id="${product.id}"
         >
 
             <img
                 src="${product.image}"
                 alt="${product.name}"
                 class="cart-item-image"
-                onerror="this.style.display='none';"
             >
 
 
@@ -1370,19 +1359,19 @@ function createCartItem(item) {
 
                 <button
                     type="button"
-                    class="cart-item-name"
+                    class="cart-product-name"
                     onclick="openProductDetail(${product.id})"
                 >
                     ${product.name}
                 </button>
 
 
-                <span class="cart-item-price">
+                <span class="cart-product-price">
                     ${formatPrice(product.price)}
                 </span>
 
 
-                <div class="cart-item-controls">
+                <div class="quantity-control">
 
                     <button
                         type="button"
@@ -1409,16 +1398,15 @@ function createCartItem(item) {
             </div>
 
 
-            <div class="cart-item-right">
+            <div class="cart-item-total">
 
                 <strong>
-                    ${formatPrice(subtotal)}
+                    ${formatPrice(total)}
                 </strong>
 
 
                 <button
                     type="button"
-                    class="remove-cart-btn"
                     onclick="removeFromCart(${product.id})"
                 >
                     Xóa
@@ -1459,36 +1447,39 @@ function renderOrderSummary() {
         } else {
 
             orderItems.innerHTML =
-                cart.map(item => {
+                cart
+                    .map(item => {
 
-                    const product =
-                        getProductById(item.id);
-
-
-                    if (!product) {
-                        return "";
-                    }
+                        const product =
+                            getProductById(item.id);
 
 
-                    return `
-                        <div class="order-item">
+                        if (!product) {
+                            return "";
+                        }
 
-                            <span>
-                                ${product.name}
-                                × ${item.quantity}
-                            </span>
 
-                            <strong>
-                                ${formatPrice(
-                                    product.price *
-                                    item.quantity
-                                )}
-                            </strong>
+                        return `
 
-                        </div>
-                    `;
+                            <div class="order-item">
 
-                }).join("");
+                                <span>
+                                    ${product.name}
+                                    × ${item.quantity}
+                                </span>
+
+                                <strong>
+                                    ${formatPrice(
+                                        product.price *
+                                        item.quantity
+                                    )}
+                                </strong>
+
+                            </div>
+                        `;
+
+                    })
+                    .join("");
         }
     }
 
@@ -1509,29 +1500,29 @@ function renderOrderSummary() {
 
 function openCart() {
 
-    const cartDrawer =
+    const drawer =
         document.getElementById(
             "cartDrawer"
         );
 
 
-    const cartOverlay =
+    const overlay =
         document.getElementById(
             "cartOverlay"
         );
 
 
-    if (cartDrawer) {
+    if (drawer) {
 
-        cartDrawer.classList.add(
+        drawer.classList.add(
             "active"
         );
     }
 
 
-    if (cartOverlay) {
+    if (overlay) {
 
-        cartOverlay.classList.add(
+        overlay.classList.add(
             "active"
         );
     }
@@ -1549,29 +1540,29 @@ function openCart() {
 
 function closeCart() {
 
-    const cartDrawer =
+    const drawer =
         document.getElementById(
             "cartDrawer"
         );
 
 
-    const cartOverlay =
+    const overlay =
         document.getElementById(
             "cartOverlay"
         );
 
 
-    if (cartDrawer) {
+    if (drawer) {
 
-        cartDrawer.classList.remove(
+        drawer.classList.remove(
             "active"
         );
     }
 
 
-    if (cartOverlay) {
+    if (overlay) {
 
-        cartOverlay.classList.remove(
+        overlay.classList.remove(
             "active"
         );
     }
@@ -1638,7 +1629,7 @@ function showNotification(message) {
 
 
 /* =========================================================
-   30. TÌM KIẾM THỜI GIAN THỰC
+   30. TÌM KIẾM NGAY KHI GÕ
    ========================================================= */
 
 document.addEventListener(
@@ -1651,7 +1642,7 @@ document.addEventListener(
             "productSearch"
         ) {
 
-            filterProducts();
+            searchProducts();
         }
     }
 );
@@ -1671,14 +1662,14 @@ document.addEventListener(
             "categoryFilter"
         ) {
 
-            filterProducts();
+            searchProducts();
         }
     }
 );
 
 
 /* =========================================================
-   32. PHÍM ESC ĐỂ ĐÓNG
+   32. ESC ĐỂ ĐÓNG
    ========================================================= */
 
 document.addEventListener(
@@ -1696,41 +1687,42 @@ document.addEventListener(
 
 
 /* =========================================================
-   33. KHỞI TẠO
+   33. KHỞI TẠO WEBSITE
    ========================================================= */
 
 function initializeWebsite() {
 
     /*
-     * Đọc giỏ hàng đã lưu.
+     * Đọc giỏ hàng cũ.
      */
 
     cart = loadCart();
 
 
     /*
-     * Tạo modal nếu HTML chưa có.
+     * Tạo modal.
      */
 
     createProductModal();
 
 
     /*
-     * Hiển thị sản phẩm.
+     * QUAN TRỌNG:
+     * HIỂN THỊ ĐỦ 5 SẢN PHẨM NGAY KHI MỞ WEB.
      */
 
     renderProducts(products);
 
 
     /*
-     * Hiển thị giỏ hàng.
+     * Hiển thị giỏ.
      */
 
     renderCart();
 
 
     /*
-     * Cập nhật số lượng trên giỏ.
+     * Cập nhật số lượng.
      */
 
     updateCartCount();
@@ -1738,7 +1730,7 @@ function initializeWebsite() {
 
 
 /* =========================================================
-   34. CHẠY WEBSITE
+   34. CHẠY
    ========================================================= */
 
 if (
@@ -1757,17 +1749,20 @@ if (
 
 
 /* =========================================================
-   35. EXPORT HÀM
+   35. ĐƯA HÀM RA NGOÀI
    ========================================================= */
 
 window.products =
     products;
 
-window.filterProducts =
-    filterProducts;
+window.renderProducts =
+    renderProducts;
 
-window.resetProductFilter =
-    resetProductFilter;
+window.searchProducts =
+    searchProducts;
+
+window.showAllProducts =
+    showAllProducts;
 
 window.openProductDetail =
     openProductDetail;
@@ -1778,14 +1773,14 @@ window.closeProductDetail =
 window.addToCart =
     addToCart;
 
-window.removeFromCart =
-    removeFromCart;
-
 window.increaseCartItem =
     increaseCartItem;
 
 window.decreaseCartItem =
     decreaseCartItem;
+
+window.removeFromCart =
+    removeFromCart;
 
 window.clearCart =
     clearCart;
@@ -1798,8 +1793,3 @@ window.closeCart =
 
 window.formatPrice =
     formatPrice;
-
-
-/* =========================================================
-   KẾT THÚC FILE SCRIPT.JS
-   ========================================================= */
