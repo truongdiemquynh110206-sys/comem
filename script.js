@@ -47,23 +47,23 @@ const products = [
             "24 tháng",
 
         description:
-            "Dầu gội thảo dược Tóc Mây Cỏ Mềm với chiết xuất từ Bồ kết, thảo dược truyền thống và các hoạt chất thiên nhiên giúp làm sạch tóc và da đầu, hỗ trợ cải thiện tình trạng gàu, gãy rụng, chẻ ngọn và mang lại cảm giác mềm mượt, chắc khỏe.",
+            "Với chiết xuất từ Bồ kết và thảo dược truyền thống cùng các hoạt chất thiên nhiên, Dầu gội thảo dược Tóc Mây giúp làm sạch tóc và da đầu, hỗ trợ cải thiện tình trạng gàu, gãy rụng và chẻ ngọn. Sản phẩm phù hợp với cả người có da đầu nhạy cảm.",
 
         highlights: [
 
-            "Không silicone, không sulfate",
+            "Không silicone",
 
-            "Phù hợp với người có da đầu nhạy cảm",
+            "Không sulfate",
+
+            "Phù hợp với da đầu nhạy cảm",
 
             "Bồ kết, Bồ hòn và Cỏ ngũ sắc giúp làm sạch tóc và da đầu",
 
             "Hương nhu và Cỏ mần trầu hỗ trợ chăm sóc tóc",
 
-            "Tinh dầu vỏ Bưởi góp phần chăm sóc tóc",
+            "Tinh dầu vỏ Bưởi hỗ trợ chăm sóc tóc",
 
-            "Tinh dầu Sả chanh mang lại hương thơm nhẹ nhàng",
-
-            "Dầu quả Bơ hỗ trợ dưỡng tóc khô, hư tổn",
+            "Dầu quả Bơ hỗ trợ dưỡng tóc khô và hư tổn",
 
             "Protein từ đậu Hà Lan giúp tóc mềm mượt"
         ],
@@ -113,7 +113,7 @@ const products = [
 
             "Hỗ trợ chăm sóc tóc chẻ ngọn",
 
-            "Giúp mái tóc có cảm giác mềm mượt",
+            "Giúp mái tóc mềm mượt",
 
             "Hỗ trợ chăm sóc mái tóc chắc khỏe"
         ],
@@ -130,7 +130,7 @@ const products = [
         ],
 
         note:
-            "Chiết xuất Bồ kết đậm đặc có thể gây cay nhẹ nếu rơi vào mắt. Nếu sản phẩm vào mắt, cần rửa sạch lại bằng nước."
+            "Chiết xuất Bồ kết đậm đặc có thể gây cay nếu rơi vào mắt. Nếu sản phẩm vào mắt, cần rửa sạch lại bằng nước."
     },
 
 
@@ -180,7 +180,7 @@ const products = [
 
             "Hỗ trợ chăm sóc tóc khô, xơ",
 
-            "Giúp tóc có cảm giác mềm mượt sau khi gội",
+            "Giúp tóc mềm mượt sau khi gội",
 
             "Hương thảo dược nhẹ nhàng",
 
@@ -212,7 +212,7 @@ const products = [
 
             "Làm sạch tóc và da đầu",
 
-            "Hỗ trợ cải thiện cảm giác tóc khô, xơ",
+            "Hỗ trợ chăm sóc tóc khô và xơ",
 
             "Giúp tóc mềm mượt hơn sau khi chăm sóc",
 
@@ -242,14 +242,14 @@ const products = [
 
 
 /* =========================================================
-   2. BIẾN GIỎ HÀNG
+   2. GIỎ HÀNG
    ========================================================= */
 
 let cart = [];
 
 
 /* =========================================================
-   3. LẤY CÁC PHẦN TỬ HTML
+   3. LẤY PHẦN TỬ HTML
    ========================================================= */
 
 const productList =
@@ -272,20 +272,19 @@ const cartOverlay =
 
 
 /* =========================================================
-   4. FORMAT GIÁ
+   4. ĐỊNH DẠNG GIÁ
    ========================================================= */
 
 function formatPrice(price) {
 
-    return new Intl.NumberFormat(
-        "vi-VN"
-    ).format(price) + "đ";
+    return new Intl.NumberFormat("vi-VN")
+        .format(price) + "đ";
 
 }
 
 
 /* =========================================================
-   5. HIỂN THỊ DANH SÁCH SẢN PHẨM
+   5. HIỂN THỊ SẢN PHẨM
    ========================================================= */
 
 function renderProducts(list = products) {
@@ -345,15 +344,15 @@ function renderProducts(list = products) {
                             <span class="product-tag">
                                 ${product.badge}
                             </span>
-                          `
+                        `
                         : ""
                 }
 
                 <img
                     src="${product.image}"
                     alt="${product.name}"
-                    loading="lazy"
                     class="product-real-image"
+                    loading="lazy"
                 >
 
             </div>
@@ -381,15 +380,9 @@ function renderProducts(list = products) {
                         ${formatPrice(product.price)}
                     </strong>
 
-                    ${
-                        product.oldPrice
-                            ? `
-                                <del>
-                                    ${formatPrice(product.oldPrice)}
-                                </del>
-                              `
-                            : ""
-                    }
+                    <del>
+                        ${formatPrice(product.oldPrice)}
+                    </del>
 
                 </div>
 
@@ -429,13 +422,13 @@ function renderProducts(list = products) {
 
 
 /* =========================================================
-   6. TÌM KIẾM SẢN PHẨM
+   6. TÌM KIẾM
    ========================================================= */
 
 function searchProducts(keyword) {
 
     const text =
-        keyword
+        String(keyword || "")
             .toLowerCase()
             .trim();
 
@@ -488,7 +481,7 @@ function searchProducts(keyword) {
 
 
 /* =========================================================
-   7. LỌC SẢN PHẨM
+   7. LỌC THEO DANH MỤC
    ========================================================= */
 
 function filterProducts(category) {
@@ -518,7 +511,7 @@ function filterProducts(category) {
 
 
 /* =========================================================
-   8. TẠO MODAL CHI TIẾT SẢN PHẨM
+   8. TẠO MODAL CHI TIẾT
    ========================================================= */
 
 function createProductModal() {
@@ -556,16 +549,15 @@ function createProductModal() {
 
             <button
                 class="product-modal-close"
-                onclick="closeProductDetail()">
+                onclick="closeProductDetail()"
+                aria-label="Đóng">
 
                 ×
 
             </button>
 
 
-            <div
-                id="productDetailContent">
-            </div>
+            <div id="productDetailContent"></div>
 
         </div>
 
@@ -621,7 +613,7 @@ function openProductDetail(productId) {
                             <span class="detail-badge">
                                 ${product.badge}
                             </span>
-                          `
+                        `
                         : ""
                 }
 
@@ -648,15 +640,9 @@ function openProductDetail(productId) {
                         ${formatPrice(product.price)}
                     </strong>
 
-                    ${
-                        product.oldPrice
-                            ? `
-                                <del>
-                                    ${formatPrice(product.oldPrice)}
-                                </del>
-                              `
-                            : ""
-                    }
+                    <del>
+                        ${formatPrice(product.oldPrice)}
+                    </del>
 
                 </div>
 
@@ -736,26 +722,22 @@ function openProductDetail(productId) {
                 </div>
 
 
-                <!-- ƯU ĐIỂM -->
+                <!-- ĐIỂM NỔI BẬT -->
 
                 <div class="detail-section">
 
                     <h3>
-                        Ưu điểm nổi bật
+                        Điểm nổi bật
                     </h3>
 
                     <ul class="detail-list">
 
-                        ${
-
-                            product.highlights
-                                .map(
-                                    item =>
-                                        `<li>${item}</li>`
-                                )
-                                .join("")
-
-                        }
+                        ${product.highlights
+                            .map(
+                                item =>
+                                    `<li>${item}</li>`
+                            )
+                            .join("")}
 
                     </ul>
 
@@ -772,16 +754,12 @@ function openProductDetail(productId) {
 
                     <ul class="detail-list">
 
-                        ${
-
-                            product.benefits
-                                .map(
-                                    item =>
-                                        `<li>${item}</li>`
-                                )
-                                .join("")
-
-                        }
+                        ${product.benefits
+                            .map(
+                                item =>
+                                    `<li>${item}</li>`
+                            )
+                            .join("")}
 
                     </ul>
 
@@ -798,20 +776,15 @@ function openProductDetail(productId) {
 
                     <div class="ingredient-tags">
 
-                        ${
-
-                            product.ingredients
-                                .map(
-                                    item =>
-                                        `
-                                        <span>
-                                            ${item}
-                                        </span>
-                                        `
-                                )
-                                .join("")
-
-                        }
+                        ${product.ingredients
+                            .map(
+                                item => `
+                                    <span>
+                                        ${item}
+                                    </span>
+                                `
+                            )
+                            .join("")}
 
                     </div>
 
@@ -828,23 +801,18 @@ function openProductDetail(productId) {
 
                     <ol class="usage-list">
 
-                        ${
-
-                            product.usage
-                                .map(
-                                    (item, index) =>
-                                        `
-                                        <li>
-                                            <b>
-                                                Bước ${index + 1}:
-                                            </b>
-                                            ${item}
-                                        </li>
-                                        `
-                                )
-                                .join("")
-
-                        }
+                        ${product.usage
+                            .map(
+                                (item, index) => `
+                                    <li>
+                                        <b>
+                                            Bước ${index + 1}:
+                                        </b>
+                                        ${item}
+                                    </li>
+                                `
+                            )
+                            .join("")}
 
                     </ol>
 
@@ -856,7 +824,7 @@ function openProductDetail(productId) {
                 <div class="detail-note">
 
                     <strong>
-                        Lưu ý quan trọng
+                        Lưu ý
                     </strong>
 
                     <p>
@@ -866,7 +834,7 @@ function openProductDetail(productId) {
                 </div>
 
 
-                <!-- ACTION -->
+                <!-- THÊM GIỎ -->
 
                 <div class="detail-actions">
 
@@ -891,11 +859,13 @@ function openProductDetail(productId) {
     `;
 
 
-    document
-        .getElementById(
+    const modal =
+        document.getElementById(
             "productDetailModal"
-        )
-        .classList.add("show");
+        );
+
+
+    modal.classList.add("show");
 
 
     document.body.classList.add(
@@ -906,7 +876,7 @@ function openProductDetail(productId) {
 
 
 /* =========================================================
-   10. ĐÓNG CHI TIẾT SẢN PHẨM
+   10. ĐÓNG CHI TIẾT
    ========================================================= */
 
 function closeProductDetail() {
@@ -931,7 +901,7 @@ function closeProductDetail() {
 
 
 /* =========================================================
-   11. THÊM SẢN PHẨM VÀO GIỎ HÀNG
+   11. THÊM VÀO GIỎ HÀNG
    ========================================================= */
 
 function addToCart(productId) {
@@ -985,7 +955,7 @@ function addToCart(productId) {
 
 
 /* =========================================================
-   12. THÊM VÀO GIỎ TỪ MODAL
+   12. THÊM TỪ CHI TIẾT
    ========================================================= */
 
 function addToCartFromDetail(productId) {
@@ -1133,7 +1103,8 @@ function updateCart() {
 
             <button
                 class="remove-item"
-                onclick="removeFromCart(${item.id})">
+                onclick="removeFromCart(${item.id})"
+                aria-label="Xóa sản phẩm">
 
                 ×
 
@@ -1142,9 +1113,7 @@ function updateCart() {
         `;
 
 
-        cartItems.appendChild(
-            element
-        );
+        cartItems.appendChild(element);
 
     });
 
@@ -1242,18 +1211,14 @@ function openCart() {
 
     if (cartSidebar) {
 
-        cartSidebar.classList.add(
-            "show"
-        );
+        cartSidebar.classList.add("show");
 
     }
 
 
     if (cartOverlay) {
 
-        cartOverlay.classList.add(
-            "show"
-        );
+        cartOverlay.classList.add("show");
 
     }
 
@@ -1268,18 +1233,14 @@ function closeCart() {
 
     if (cartSidebar) {
 
-        cartSidebar.classList.remove(
-            "show"
-        );
+        cartSidebar.classList.remove("show");
 
     }
 
 
     if (cartOverlay) {
 
-        cartOverlay.classList.remove(
-            "show"
-        );
+        cartOverlay.classList.remove("show");
 
     }
 
@@ -1287,7 +1248,7 @@ function closeCart() {
 
 
 /* =========================================================
-   19. THÔNG BÁO THÊM GIỎ HÀNG
+   19. THÔNG BÁO
    ========================================================= */
 
 function showCartMessage(message) {
@@ -1301,9 +1262,7 @@ function showCartMessage(message) {
     if (!notification) {
 
         notification =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         notification.id =
             "cartNotification";
@@ -1322,16 +1281,12 @@ function showCartMessage(message) {
         message;
 
 
-    notification.classList.add(
-        "show"
-    );
+    notification.classList.add("show");
 
 
     setTimeout(() => {
 
-        notification.classList.remove(
-            "show"
-        );
+        notification.classList.remove("show");
 
     }, 2500);
 
@@ -1339,7 +1294,7 @@ function showCartMessage(message) {
 
 
 /* =========================================================
-   20. KHỞI TẠO
+   20. KHỞI TẠO WEBSITE
    ========================================================= */
 
 document.addEventListener(
@@ -1353,11 +1308,7 @@ document.addEventListener(
         createProductModal();
 
 
-        /*
-         * Nếu HTML có ô tìm kiếm
-         * với id="searchInput"
-         * thì tự động kích hoạt tìm kiếm.
-         */
+        /* Tìm kiếm */
 
         const searchInput =
             document.getElementById(
@@ -1381,9 +1332,7 @@ document.addEventListener(
         }
 
 
-        /*
-         * Nút mở giỏ hàng
-         */
+        /* Mở giỏ hàng */
 
         const openCartButton =
             document.getElementById(
@@ -1401,9 +1350,7 @@ document.addEventListener(
         }
 
 
-        /*
-         * Nút đóng giỏ hàng
-         */
+        /* Đóng giỏ hàng */
 
         const closeCartButton =
             document.getElementById(
@@ -1421,9 +1368,7 @@ document.addEventListener(
         }
 
 
-        /*
-         * Click nền ngoài giỏ hàng
-         */
+        /* Click nền ngoài */
 
         if (cartOverlay) {
 
@@ -1439,7 +1384,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   21. ESC ĐỂ ĐÓNG MODAL
+   21. PHÍM ESC
    ========================================================= */
 
 document.addEventListener(
@@ -1447,7 +1392,6 @@ document.addEventListener(
     event => {
 
         if (event.key !== "Escape") return;
-
 
         closeProductDetail();
 
@@ -1458,7 +1402,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   22. NGĂN LỖI KHI ẢNH KHÔNG TẢI ĐƯỢC
+   22. XỬ LÝ ẢNH LỖI
    ========================================================= */
 
 document.addEventListener(
@@ -1484,8 +1428,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   23. XUẤT DỮ LIỆU RA WINDOW
-   Cho phép sử dụng từ HTML nếu cần
+   23. CHO PHÉP HTML GỌI HÀM
    ========================================================= */
 
 window.products =
