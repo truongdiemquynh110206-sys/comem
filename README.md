@@ -1,6 +1,6 @@
-# NÂNG NIU MÁI TÓC VIỆT - Website thương mại điện tử dầu gội thảo dược Tóc mây Cỏ Mềm
+# NÂNG NIU MÁI TÓC VIỆT - Website thương mại điện tử dầu gội Bưởi
 
-Website mô phỏng cho bài tập thương mại điện tử, giới thiệu và bán sản phẩm dầu gội Tóc mây Cỏ Mềm.
+Website mô phỏng cho bài tập thương mại điện tử, giới thiệu và bán sản phẩm dầu gội Bưởi Cocoon.
 
 ## Cấu trúc file
 
@@ -34,5 +34,3 @@ Website mô phỏng cho bài tập thương mại điện tử, giới thiệu v
 - Chức năng thanh toán và quản lý đơn hàng chưa kết nối backend.
 - Doanh thu, chỉ số theo dõi và thông tin liên hệ là dữ liệu giả định.
 - Ảnh sản phẩm được tham chiếu từ Wikimedia Commons.
-
-Viết những nội dung trên thành code. Tạo thành 1 file duy nhất README.
