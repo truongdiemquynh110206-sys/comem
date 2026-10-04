@@ -22,7 +22,7 @@ Website mô phỏng cho bài tập thương mại điện tử, giới thiệu v
 ## Đưa lên GitHub Pages
 
 1. Tạo repository ở chế độ **Public**.
-2. Upload cả 5 file vào thư mục gốc, sau đó bấm **Commit changes**.
+2. Upload cả 4 file vào thư mục gốc, sau đó bấm **Commit changes**.
 3. Vào **Settings → Pages**, chọn **Deploy from a branch**, branch `main`, thư mục `/ (root)`, sau đó bấm **Save**.
 4. Đợi GitHub hoàn tất quá trình build và triển khai website.
 
