@@ -1,4 +1,4 @@
-# NÂNG NIU MÁI TÓC VIỆT - Website thương mại điện tử dầu gội Tóc mây Cỏ Mềm
+# NÂNG NIU MÁI TÓC VIỆT - Website thương mại điện tử dầu gội thảo dược Tóc mây Cỏ Mềm
 
 Website mô phỏng cho bài tập thương mại điện tử, giới thiệu và bán sản phẩm dầu gội Tóc mây Cỏ Mềm.
 
